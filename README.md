@@ -210,13 +210,18 @@ Requires `backend/.env` to exist (copy from `.env.example`) since
 | GET | `/inventory/{product_id}` | Retrieve one catalog item (404 if missing) |
 | POST | `/analyze` | Full brief-to-estimate pipeline |
 
-`POST /analyze` accepts either:
-- `multipart/form-data` with fields `brief` (string) and optional `image` (file) -- for image uploads.
-- `application/json` with `{"brief": "..."}` -- for brief-only analysis.
+`POST /analyze` accepts exactly one content type -- `multipart/form-data`
+-- with a required `brief` text field and an optional `image` file part.
+This single contract is declared via FastAPI's `Form(...)`/`File(...)`
+parameters (not manual request parsing), so it shows up correctly as an
+editable brief field and a file-upload control in Swagger UI at `/docs`,
+and is machine-checked in `backend/tests/test_api.py::test_openapi_schema_declares_analyze_request_body`.
+A brief-only request is just this same form with no `image` part -- there
+is no separate JSON variant.
 
 Example (brief-only):
 ```powershell
-curl -X POST http://localhost:8000/analyze -H "Content-Type: application/json" -d "{\"brief\": \"An 18k yellow gold engagement ring with a round diamond.\"}"
+curl -X POST http://localhost:8000/analyze -F "brief=An 18k yellow gold engagement ring with a round diamond."
 ```
 
 Example (with image):
@@ -227,11 +232,16 @@ curl -X POST http://localhost:8000/analyze -F "brief=A silver ring with a citrin
 Response schema: see `backend/app/models/schemas.py` (`AnalyzeResponse`)
 or `frontend/src/types/api.ts` for the equivalent TypeScript contract --
 the frontend consumes the real response shape with no fabricated fields.
+The frontend always sends `FormData` (never a manually-set multipart
+`Content-Type` header -- the browser generates the boundary itself).
 
-Validation: empty/missing brief -> 422; unsupported content-type -> 415;
-image over 8MB -> 413; image failing magic-byte format sniffing -> 415;
-unexpected internal error -> 500 with a generic message (no stack trace
-or credentials ever returned).
+Validation: empty/whitespace-only or missing brief -> 422; brief over
+4000 characters -> 422; a non-multipart request (e.g. JSON) -> 422, since
+`brief` is reported as a missing required field, the same structured
+error FastAPI uses for any other missing field; image over 8MB -> 413;
+image failing magic-byte format sniffing -> 415; unexpected internal
+error -> 500 with a generic message (no stack trace or credentials ever
+returned).
 
 ## Environment configuration
 

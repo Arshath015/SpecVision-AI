@@ -5,7 +5,12 @@ from __future__ import annotations
 
 import uuid
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, File, Form, HTTPException, UploadFile
+# Pydantic binds the base Starlette class (not FastAPI's UploadFile
+# subclass) when UploadFile appears inside a Union -- see the "image"
+# parameter below. isinstance() must check against this base class or a
+# real upload silently fails the check.
+from starlette.datastructures import UploadFile as StarletteUploadFile
 
 from app.core.config import get_settings
 from app.core.image_validation import sniff_image_content_type
@@ -44,45 +49,45 @@ def get_inventory_item(product_id: str) -> InventoryItem:
     return item
 
 
-async def _read_multipart(request: Request) -> tuple[str | None, bytes | None, str | None]:
-    form = await request.form()
-    brief = form.get("brief")
-    brief = str(brief) if brief is not None else None
-    image_field = form.get("image")
-    image_bytes: bytes | None = None
-    declared_type: str | None = None
-    if image_field is not None and hasattr(image_field, "read"):
-        image_bytes = await image_field.read()
-        declared_type = getattr(image_field, "content_type", None)
-    return brief, image_bytes, declared_type
-
-
-@router.post("/analyze", response_model=AnalyzeResponse)
-async def analyze(request: Request) -> AnalyzeResponse:
+@router.post(
+    "/analyze",
+    response_model=AnalyzeResponse,
+    summary="Analyze a jewelry sales brief, with an optional reference photo",
+    description=(
+        "Accepts `multipart/form-data` with a required `brief` text field and an "
+        "optional `image` file upload (JPEG, PNG, or WebP). For a brief-only request, "
+        "submit the form with no `image` part -- there is no separate JSON content type "
+        "for this endpoint, so the request body always declares correctly in OpenAPI/Swagger."
+    ),
+)
+async def analyze(
+    brief: str = Form(
+        ...,
+        min_length=1,
+        max_length=4000,
+        description="Free-text sales brief describing the desired jewelry piece.",
+    ),
+    # UploadFile | str | None (not just UploadFile | None): when an optional
+    # file field is left empty, some multipart clients -- including Swagger
+    # UI's "Send empty value" checkbox, left checked by default -- submit an
+    # empty string instead of omitting the part entirely. A strict
+    # `UploadFile | None` annotation rejects that with a 422 even though "no
+    # file" is exactly what the client meant; accepting `str` here and
+    # treating it as "no image" below handles that real client behavior
+    # instead of fighting it.
+    image: UploadFile | str | None = File(
+        default=None,
+        description="Optional reference photo (JPEG, PNG, or WebP, max size configured server-side).",
+    ),
+) -> AnalyzeResponse:
     settings = get_settings()
-    content_type = request.headers.get("content-type", "")
+
+    if not brief.strip():
+        raise HTTPException(status_code=422, detail="Field 'brief' is required and must be a non-empty string.")
 
     image_bytes: bytes | None = None
-    declared_type: str | None = None
-
-    if content_type.startswith("application/json"):
-        try:
-            body = await request.json()
-        except Exception as exc:
-            raise HTTPException(status_code=400, detail="Request body is not valid JSON.") from exc
-        brief = body.get("brief") if isinstance(body, dict) else None
-    elif content_type.startswith("multipart/form-data"):
-        brief, image_bytes, declared_type = await _read_multipart(request)
-    else:
-        raise HTTPException(
-            status_code=415,
-            detail="Unsupported Content-Type. Use application/json (brief-only) or multipart/form-data (brief + optional image).",
-        )
-
-    if not brief or not isinstance(brief, str) or not brief.strip():
-        raise HTTPException(status_code=422, detail="Field 'brief' is required and must be a non-empty string.")
-    if len(brief) > 4000:
-        raise HTTPException(status_code=422, detail="Field 'brief' exceeds the maximum length of 4000 characters.")
+    if isinstance(image, StarletteUploadFile) and image.filename:
+        image_bytes = await image.read()
 
     if image_bytes:
         if len(image_bytes) > settings.max_image_size_bytes:

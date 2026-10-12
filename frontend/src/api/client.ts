@@ -44,20 +44,15 @@ export async function analyze(brief: string, image: File | null): Promise<Analyz
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
   try {
-    let res: Response;
-    if (image) {
-      const form = new FormData();
-      form.append("brief", brief);
-      form.append("image", image);
-      res = await fetch(`${API_BASE_URL}/analyze`, { method: "POST", body: form, signal: controller.signal });
-    } else {
-      res = await fetch(`${API_BASE_URL}/analyze`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ brief }),
-        signal: controller.signal,
-      });
-    }
+    // Always multipart/form-data -- the backend's single, documented request
+    // contract (see backend/app/api/routes.py). A brief-only request is just
+    // this same form with the "image" part omitted. Do NOT set a Content-Type
+    // header here: the browser generates the multipart boundary itself, and
+    // overriding it manually produces a malformed request the server can't parse.
+    const form = new FormData();
+    form.append("brief", brief);
+    if (image) form.append("image", image);
+    const res = await fetch(`${API_BASE_URL}/analyze`, { method: "POST", body: form, signal: controller.signal });
     if (!res.ok) throw new ApiError(res.status, await parseErrorBody(res));
     return (await res.json()) as AnalyzeResponse;
   } catch (err) {
