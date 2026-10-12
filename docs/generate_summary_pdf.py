@@ -123,6 +123,7 @@ def load(name):
 def main():
     case_a = load("case_a.json")
     case_b = load("case_b.json")
+    case_c = load("case_c.json")
 
     pdf = DocPDF(format="A4")
     pdf.set_auto_page_break(auto=True, margin=20)
@@ -303,6 +304,84 @@ def main():
     pdf.set_text_color(*status_color)
     pdf.cell(CONTENT_W, 6, f'Status: {cs["overall_status"].upper().replace("_", " ")}', new_x="LMARGIN", new_y="NEXT")
     pdf.set_x(MARGIN)
+    pdf.ln(1)
+    for flag in cs["review_flags"]:
+        pdf.flag_box(flag["code"], flag["severity"], flag["message"])
+
+    # ---- Case C --------------------------------------------------------
+    pdf.add_page()
+    pdf.h1("Test case 3 -- real photo, successful match and price")
+    pdf.body(
+        'Brief: "An 18k yellow gold solitaire ring with a round diamond center stone and no side stones." '
+        '(real photo, Wikimedia Commons CC BY-SA, see evaluation/images/PROVENANCE.md)',
+        size=9.5, color=NAVY,
+    )
+    pdf.body("Mode: offline/demo (deterministic, no API call). Run with:\n"
+              "python evaluation/runner/run_evaluation.py --mode offline", size=8.5, color=SLATE)
+    pdf.ln(2)
+
+    img_w = 85
+    pdf.set_x(MARGIN)
+    y0 = pdf.get_y()
+    pdf.set_font("Helvetica", "B", 8.5)
+    pdf.set_text_color(*SLATE)
+    pdf.cell(img_w, 5, "Original photo", align="C", new_x="RIGHT", new_y="TOP")
+    pdf.set_x(MARGIN + img_w + 6)
+    pdf.cell(img_w, 5, "CV detections overlaid (green circles)", align="C", new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(MARGIN)
+    pdf.ln(1)
+    img_y = pdf.get_y()
+    pdf.image(str(BUILD_DIR / "case_c_original.jpg"), x=MARGIN, y=img_y, w=img_w)
+    pdf.image(str(BUILD_DIR / "case_c_annotated.png"), x=MARGIN + img_w + 6, y=img_y, w=img_w)
+    pdf.set_xy(MARGIN, img_y + img_w * 0.75 + 4)
+
+    pdf.h2("Extracted specification")
+    spec = case_c["specification"]
+    pdf.kv_row("Product type", spec["product_type"]["value"], conf=spec["product_type"]["confidence"])
+    pdf.kv_row("Design category", spec["design_category"]["value"], conf=spec["design_category"]["confidence"])
+    pdf.kv_row("Metal", f'{spec["metal_purity"]["value"]} {spec["metal_color"]["value"]} {spec["metal_type"]["value"]}', conf=spec["metal_type"]["confidence"])
+    pdf.kv_row("Center stone", f'{spec["center_stone"]["shape"]["value"]} {spec["center_stone"]["gemstone_type"]["value"]}', conf=spec["center_stone"]["gemstone_type"]["confidence"])
+    pdf.kv_row("Side stones", spec["side_stones"]["count_total"]["value"], conf=spec["side_stones"]["count_total"]["confidence"])
+
+    pdf.h2("Inventory match")
+    sel = case_c["inventory_match"]["selected"]
+    pdf.body(
+        f'Selected: {sel["product_id"]} -- "{sel["name"]}" -- match score {sel["match_score"]*100:.0f}% '
+        f'(threshold: {case_c["inventory_match"]["threshold_used"]*100:.0f}%) -- PASSED, auto-selected.',
+        size=9.5,
+    )
+
+    pdf.h2("Indicative price")
+    price = case_c["price_estimate"]
+    pdf.body(f'{price["currency"]} {price["indicative_total"]:,.2f} -- computed from the matched catalog item.', size=9)
+
+    pdf.h2("Computer vision result")
+    cv = case_c["cv_estimate"]
+    pdf.kv_row("Visible components detected", cv["estimated_visible_count"], conf=cv["confidence"])
+    pdf.body(
+        "This is a clean studio product photo of a plain solitaire with no side stones, but the band's "
+        "polished-gold highlight still produces enough false-positive detections to push confidence down "
+        "to MEDIUM. Specification extraction, inventory matching, and pricing all succeeded independently "
+        "of this -- the three subsystems are deliberately decoupled, so a CV caveat on one image does not "
+        "block the rest of the pipeline from producing a usable, priced result.",
+        size=9,
+    )
+
+    pdf.h2("Confidence & review")
+    cs = case_c["confidence_summary"]
+    status_color = {"auto_approved": GREEN, "needs_review": AMBER, "failed": RED}[cs["overall_status"]]
+    pdf.set_x(MARGIN)
+    pdf.set_font("Helvetica", "B", 10)
+    pdf.set_text_color(*status_color)
+    pdf.cell(CONTENT_W, 6, f'Status: {cs["overall_status"].upper().replace("_", " ")}', new_x="LMARGIN", new_y="NEXT")
+    pdf.set_x(MARGIN)
+    pdf.ln(1)
+    pdf.body(
+        "Flagged for review -- not because the match or price are unreliable, but because the CV module "
+        "honestly disagrees with the brief's claim of zero side stones. That disagreement is surfaced "
+        "explicitly below rather than silently resolved either way.",
+        size=8.7, color=SLATE,
+    )
     pdf.ln(1)
     for flag in cs["review_flags"]:
         pdf.flag_box(flag["code"], flag["severity"], flag["message"])

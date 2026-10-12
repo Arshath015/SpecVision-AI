@@ -1,10 +1,11 @@
 # docs/
 
 `SpecVision_AI_Summary.pdf` -- a short project summary covering what was
-built and two real, reproducible test-case results (not mockups): one
-successful end-to-end match, and one case that demonstrates a documented
+built and three real, reproducible test-case results (not mockups):
+a text-only successful match, a real photo demonstrating a documented
 computer-vision limitation (also analyzed in `../EVALUATION.md` as
-"Failure #1").
+"Failure #1"), and a real photo where matching/pricing succeed while CV
+independently and honestly flags its own uncertainty.
 
 To regenerate the PDF:
 

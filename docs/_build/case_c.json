@@ -1,0 +1,827 @@
+{
+  "specification": {
+    "product_type": {
+      "value": "ring",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Product type matched directly in the brief text by the offline rule-based extractor."
+    },
+    "design_category": {
+      "value": "solitaire",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Design category matched directly in the brief text by the offline rule-based extractor."
+    },
+    "metal_type": {
+      "value": "gold",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Metal type matched directly in the brief text by the offline rule-based extractor."
+    },
+    "metal_purity": {
+      "value": "18k",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Metal purity matched directly in the brief text by the offline rule-based extractor."
+    },
+    "metal_color": {
+      "value": "yellow",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Metal color matched directly in the brief text by the offline rule-based extractor."
+    },
+    "setting_type": {
+      "value": null,
+      "source": "unknown",
+      "confidence": "low",
+      "reason": "Setting type was not stated in the brief and could not be confidently inferred."
+    },
+    "dimensions": {
+      "ring_size_us": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Ring size was not stated in the brief and could not be confidently inferred."
+      },
+      "band_width_mm": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Band width was not stated in the brief and could not be confidently inferred."
+      }
+    },
+    "center_stone": {
+      "gemstone_type": {
+        "value": "diamond",
+        "source": "user_provided",
+        "confidence": "high",
+        "reason": "Center stone type matched directly in the brief text by the offline rule-based extractor."
+      },
+      "shape": {
+        "value": "round",
+        "source": "user_provided",
+        "confidence": "high",
+        "reason": "Center stone shape matched directly in the brief text by the offline rule-based extractor."
+      },
+      "carat": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Center stone carat was not stated in the brief and could not be confidently inferred."
+      }
+    },
+    "side_stones": {
+      "gemstone_type": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Side stone type was not stated in the brief and could not be confidently inferred."
+      },
+      "shape": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Side stone shape was not stated in the brief and could not be confidently inferred."
+      },
+      "count_total": {
+        "value": 0,
+        "source": "user_provided",
+        "confidence": "high",
+        "reason": "Side stone count matched directly in the brief text by the offline rule-based extractor."
+      },
+      "total_carat": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Side stone total carat was not stated in the brief and could not be confidently inferred."
+      }
+    },
+    "notes": "Extracted via deterministic offline keyword rules (no LLM call made)."
+  },
+  "inventory_match": {
+    "candidates": [
+      {
+        "product_id": "SV-001",
+        "name": "Solitaire Round Yellow Gold Ring",
+        "unit_price": 2568.0,
+        "currency": "USD",
+        "match_score": 0.809,
+        "passed_threshold": true,
+        "attribute_explanations": [
+          {
+            "attribute": "center_stone_type",
+            "extracted_value": "diamond",
+            "inventory_value": "diamond",
+            "weight": 0.2,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Center stone type matches."
+          },
+          {
+            "attribute": "design_category",
+            "extracted_value": "solitaire",
+            "inventory_value": "solitaire",
+            "weight": 0.15,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Design category matches."
+          },
+          {
+            "attribute": "setting_type",
+            "extracted_value": "unknown",
+            "inventory_value": "tension",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Setting type missing data."
+          },
+          {
+            "attribute": "center_stone_shape",
+            "extracted_value": "round",
+            "inventory_value": "round",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Center stone shape matches."
+          },
+          {
+            "attribute": "center_stone_carat",
+            "extracted_value": "unknown",
+            "inventory_value": "0.3-0.6",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center carat unknown vs. catalog range 0.3-0.6ct."
+          },
+          {
+            "attribute": "metal_type",
+            "extracted_value": "gold",
+            "inventory_value": "gold",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal type matches."
+          },
+          {
+            "attribute": "metal_purity",
+            "extracted_value": "18k",
+            "inventory_value": "18k",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal purity matches."
+          },
+          {
+            "attribute": "metal_color",
+            "extracted_value": "yellow",
+            "inventory_value": "yellow",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal color matches."
+          },
+          {
+            "attribute": "side_stone_count",
+            "extracted_value": "0",
+            "inventory_value": "8",
+            "weight": 0.08,
+            "attribute_score": 0.3,
+            "status": "partial_match",
+            "explanation": "Side stone count 0 vs. catalog 8."
+          },
+          {
+            "attribute": "side_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "moissanite",
+            "weight": 0.04,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Side stone type missing data."
+          },
+          {
+            "attribute": "band_width_mm",
+            "extracted_value": "unknown",
+            "inventory_value": "1.7",
+            "weight": 0.03,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Band width unknownmm vs. catalog 1.7mm."
+          }
+        ],
+        "item": {
+          "product_id": "SV-001",
+          "name": "Solitaire Round Yellow Gold Ring",
+          "product_type": "ring",
+          "design_category": "solitaire",
+          "metal_type": "gold",
+          "metal_purity": "18k",
+          "metal_color": "yellow",
+          "setting_type": "tension",
+          "center_stone_type": "diamond",
+          "center_stone_shape": "round",
+          "center_stone_carat_min": 0.3,
+          "center_stone_carat_max": 0.6,
+          "side_stone_type": "moissanite",
+          "side_stone_count": 8,
+          "band_width_mm": 1.7,
+          "unit_price": 2568.0,
+          "currency": "USD"
+        }
+      },
+      {
+        "product_id": "SV-038",
+        "name": "Solitaire Pear Yellow Gold Ring",
+        "unit_price": 4276.0,
+        "currency": "USD",
+        "match_score": 0.659,
+        "passed_threshold": false,
+        "attribute_explanations": [
+          {
+            "attribute": "center_stone_type",
+            "extracted_value": "diamond",
+            "inventory_value": "diamond",
+            "weight": 0.2,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Center stone type matches."
+          },
+          {
+            "attribute": "design_category",
+            "extracted_value": "solitaire",
+            "inventory_value": "solitaire",
+            "weight": 0.15,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Design category matches."
+          },
+          {
+            "attribute": "setting_type",
+            "extracted_value": "unknown",
+            "inventory_value": "tension",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Setting type missing data."
+          },
+          {
+            "attribute": "center_stone_shape",
+            "extracted_value": "round",
+            "inventory_value": "pear",
+            "weight": 0.1,
+            "attribute_score": 0.0,
+            "status": "contradiction",
+            "explanation": "Center stone shape contradiction."
+          },
+          {
+            "attribute": "center_stone_carat",
+            "extracted_value": "unknown",
+            "inventory_value": "0.7-1.1",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center carat unknown vs. catalog range 0.7-1.1ct."
+          },
+          {
+            "attribute": "metal_type",
+            "extracted_value": "gold",
+            "inventory_value": "gold",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal type matches."
+          },
+          {
+            "attribute": "metal_purity",
+            "extracted_value": "18k",
+            "inventory_value": "22k",
+            "weight": 0.05,
+            "attribute_score": 0.0,
+            "status": "contradiction",
+            "explanation": "Metal purity contradiction."
+          },
+          {
+            "attribute": "metal_color",
+            "extracted_value": "yellow",
+            "inventory_value": "yellow",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal color matches."
+          },
+          {
+            "attribute": "side_stone_count",
+            "extracted_value": "0",
+            "inventory_value": "10",
+            "weight": 0.08,
+            "attribute_score": 0.3,
+            "status": "partial_match",
+            "explanation": "Side stone count 0 vs. catalog 10."
+          },
+          {
+            "attribute": "side_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "unknown",
+            "weight": 0.04,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Side stone type missing data."
+          },
+          {
+            "attribute": "band_width_mm",
+            "extracted_value": "unknown",
+            "inventory_value": "4.2",
+            "weight": 0.03,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Band width unknownmm vs. catalog 4.2mm."
+          }
+        ],
+        "item": {
+          "product_id": "SV-038",
+          "name": "Solitaire Pear Yellow Gold Ring",
+          "product_type": "ring",
+          "design_category": "solitaire",
+          "metal_type": "gold",
+          "metal_purity": "22k",
+          "metal_color": "yellow",
+          "setting_type": "tension",
+          "center_stone_type": "diamond",
+          "center_stone_shape": "pear",
+          "center_stone_carat_min": 0.7,
+          "center_stone_carat_max": 1.1,
+          "side_stone_type": "unknown",
+          "side_stone_count": 10,
+          "band_width_mm": 4.2,
+          "unit_price": 4276.0,
+          "currency": "USD"
+        }
+      },
+      {
+        "product_id": "SV-032",
+        "name": "Wedding Band with 0 Side Stones - Yellow Gold",
+        "unit_price": 5382.0,
+        "currency": "USD",
+        "match_score": 0.615,
+        "passed_threshold": false,
+        "attribute_explanations": [
+          {
+            "attribute": "center_stone_type",
+            "extracted_value": "diamond",
+            "inventory_value": "diamond",
+            "weight": 0.2,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Center stone type matches."
+          },
+          {
+            "attribute": "design_category",
+            "extracted_value": "solitaire",
+            "inventory_value": "wedding_band",
+            "weight": 0.15,
+            "attribute_score": 0.0,
+            "status": "contradiction",
+            "explanation": "Design category contradiction."
+          },
+          {
+            "attribute": "setting_type",
+            "extracted_value": "unknown",
+            "inventory_value": "halo",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Setting type missing data."
+          },
+          {
+            "attribute": "center_stone_shape",
+            "extracted_value": "round",
+            "inventory_value": "radiant",
+            "weight": 0.1,
+            "attribute_score": 0.0,
+            "status": "contradiction",
+            "explanation": "Center stone shape contradiction."
+          },
+          {
+            "attribute": "center_stone_carat",
+            "extracted_value": "unknown",
+            "inventory_value": "1.0-1.6",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center carat unknown vs. catalog range 1.0-1.6ct."
+          },
+          {
+            "attribute": "metal_type",
+            "extracted_value": "gold",
+            "inventory_value": "gold",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal type matches."
+          },
+          {
+            "attribute": "metal_purity",
+            "extracted_value": "18k",
+            "inventory_value": "18k",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal purity matches."
+          },
+          {
+            "attribute": "metal_color",
+            "extracted_value": "yellow",
+            "inventory_value": "yellow",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal color matches."
+          },
+          {
+            "attribute": "side_stone_count",
+            "extracted_value": "0",
+            "inventory_value": "0",
+            "weight": 0.08,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Side stone count 0 vs. catalog 0."
+          },
+          {
+            "attribute": "side_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "unknown",
+            "weight": 0.04,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Side stone type missing data."
+          },
+          {
+            "attribute": "band_width_mm",
+            "extracted_value": "unknown",
+            "inventory_value": "3.3",
+            "weight": 0.03,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Band width unknownmm vs. catalog 3.3mm."
+          }
+        ],
+        "item": {
+          "product_id": "SV-032",
+          "name": "Wedding Band with 0 Side Stones - Yellow Gold",
+          "product_type": "ring",
+          "design_category": "wedding_band",
+          "metal_type": "gold",
+          "metal_purity": "18k",
+          "metal_color": "yellow",
+          "setting_type": "halo",
+          "center_stone_type": "diamond",
+          "center_stone_shape": "radiant",
+          "center_stone_carat_min": 1.0,
+          "center_stone_carat_max": 1.6,
+          "side_stone_type": "unknown",
+          "side_stone_count": 0,
+          "band_width_mm": 3.3,
+          "unit_price": 5382.0,
+          "currency": "USD"
+        }
+      }
+    ],
+    "selected": {
+      "product_id": "SV-001",
+      "name": "Solitaire Round Yellow Gold Ring",
+      "unit_price": 2568.0,
+      "currency": "USD",
+      "match_score": 0.809,
+      "passed_threshold": true,
+      "attribute_explanations": [
+        {
+          "attribute": "center_stone_type",
+          "extracted_value": "diamond",
+          "inventory_value": "diamond",
+          "weight": 0.2,
+          "attribute_score": 1.0,
+          "status": "exact_match",
+          "explanation": "Center stone type matches."
+        },
+        {
+          "attribute": "design_category",
+          "extracted_value": "solitaire",
+          "inventory_value": "solitaire",
+          "weight": 0.15,
+          "attribute_score": 1.0,
+          "status": "exact_match",
+          "explanation": "Design category matches."
+        },
+        {
+          "attribute": "setting_type",
+          "extracted_value": "unknown",
+          "inventory_value": "tension",
+          "weight": 0.1,
+          "attribute_score": 0.5,
+          "status": "missing_data",
+          "explanation": "Setting type missing data."
+        },
+        {
+          "attribute": "center_stone_shape",
+          "extracted_value": "round",
+          "inventory_value": "round",
+          "weight": 0.1,
+          "attribute_score": 1.0,
+          "status": "exact_match",
+          "explanation": "Center stone shape matches."
+        },
+        {
+          "attribute": "center_stone_carat",
+          "extracted_value": "unknown",
+          "inventory_value": "0.3-0.6",
+          "weight": 0.1,
+          "attribute_score": 0.5,
+          "status": "missing_data",
+          "explanation": "Center carat unknown vs. catalog range 0.3-0.6ct."
+        },
+        {
+          "attribute": "metal_type",
+          "extracted_value": "gold",
+          "inventory_value": "gold",
+          "weight": 0.1,
+          "attribute_score": 1.0,
+          "status": "exact_match",
+          "explanation": "Metal type matches."
+        },
+        {
+          "attribute": "metal_purity",
+          "extracted_value": "18k",
+          "inventory_value": "18k",
+          "weight": 0.05,
+          "attribute_score": 1.0,
+          "status": "exact_match",
+          "explanation": "Metal purity matches."
+        },
+        {
+          "attribute": "metal_color",
+          "extracted_value": "yellow",
+          "inventory_value": "yellow",
+          "weight": 0.05,
+          "attribute_score": 1.0,
+          "status": "exact_match",
+          "explanation": "Metal color matches."
+        },
+        {
+          "attribute": "side_stone_count",
+          "extracted_value": "0",
+          "inventory_value": "8",
+          "weight": 0.08,
+          "attribute_score": 0.3,
+          "status": "partial_match",
+          "explanation": "Side stone count 0 vs. catalog 8."
+        },
+        {
+          "attribute": "side_stone_type",
+          "extracted_value": "unknown",
+          "inventory_value": "moissanite",
+          "weight": 0.04,
+          "attribute_score": 0.5,
+          "status": "missing_data",
+          "explanation": "Side stone type missing data."
+        },
+        {
+          "attribute": "band_width_mm",
+          "extracted_value": "unknown",
+          "inventory_value": "1.7",
+          "weight": 0.03,
+          "attribute_score": 0.5,
+          "status": "missing_data",
+          "explanation": "Band width unknownmm vs. catalog 1.7mm."
+        }
+      ],
+      "item": {
+        "product_id": "SV-001",
+        "name": "Solitaire Round Yellow Gold Ring",
+        "product_type": "ring",
+        "design_category": "solitaire",
+        "metal_type": "gold",
+        "metal_purity": "18k",
+        "metal_color": "yellow",
+        "setting_type": "tension",
+        "center_stone_type": "diamond",
+        "center_stone_shape": "round",
+        "center_stone_carat_min": 0.3,
+        "center_stone_carat_max": 0.6,
+        "side_stone_type": "moissanite",
+        "side_stone_count": 8,
+        "band_width_mm": 1.7,
+        "unit_price": 2568.0,
+        "currency": "USD"
+      }
+    },
+    "threshold_used": 0.72,
+    "reliable_match_found": true,
+    "explanation": "Top candidate SV-001 scored 0.81, meeting the auto-selection threshold of 0.72."
+  },
+  "cv_estimate": {
+    "method": "contour_and_hough_hybrid",
+    "available": true,
+    "estimated_visible_count": 21,
+    "detections": [
+      {
+        "x": 484,
+        "y": 319,
+        "radius": 36,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 349,
+        "y": 301,
+        "radius": 41,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 442,
+        "y": 376,
+        "radius": 34,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 378,
+        "y": 378,
+        "radius": 41,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 378,
+        "y": 249,
+        "radius": 36,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 317,
+        "y": 222,
+        "radius": 25,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 430,
+        "y": 211,
+        "radius": 26,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 271,
+        "y": 299,
+        "radius": 39,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 473,
+        "y": 259,
+        "radius": 36,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 325,
+        "y": 349,
+        "radius": 26,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 522,
+        "y": 293,
+        "radius": 20,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 492,
+        "y": 216,
+        "radius": 23,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 330,
+        "y": 389,
+        "radius": 23,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 417,
+        "y": 412,
+        "radius": 18,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 496,
+        "y": 379,
+        "radius": 18,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 439,
+        "y": 281,
+        "radius": 12,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 407,
+        "y": 325,
+        "radius": 20,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 411,
+        "y": 173,
+        "radius": 25,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 415,
+        "y": 262,
+        "radius": 14,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 352,
+        "y": 210,
+        "radius": 12,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 527,
+        "y": 268,
+        "radius": 10,
+        "detection_source": "hough_circle"
+      }
+    ],
+    "confidence": "medium",
+    "reason": "Detected 21 visible small component(s) via Hough-circle + contour analysis (130 circular, 0 contour-based before duplicate suppression).",
+    "image_quality_warnings": [
+      "Detection count (21) is higher than typical for a ring's visible accent stones; treat with extra caution -- may include reflections or decorative metalwork."
+    ],
+    "suitable_for_automatic_use": false,
+    "annotated_image_base64": null,
+    "processing_time_ms": 26.67,
+    "brief_claimed_count": 0,
+    "disagreement_with_brief": true,
+    "disagreement_ratio": 21.0
+  },
+  "price_estimate": {
+    "available": true,
+    "currency": "USD",
+    "base_unit_price": 2568.0,
+    "adjustments": [],
+    "indicative_total": 2568.0,
+    "formula_description": "indicative_total = catalog_unit_price + extra_carat_adjustment(if spec carat exceeds catalog max) + extra_side_stone_adjustment(if spec side count exceeds catalog count)",
+    "assumptions": [
+      {
+        "code": "CATALOG_BASE_PRICE",
+        "description": "Base price taken from matched catalog item SV-001 (Solitaire Round Yellow Gold Ring)."
+      },
+      {
+        "code": "CARAT_UNKNOWN_NO_UPCHARGE",
+        "description": "Center stone carat was not determined; no carat upcharge was applied (base catalog price used as-is)."
+      }
+    ],
+    "is_confirmed_quote": false,
+    "reason": "Indicative estimate derived from the best-matching catalog item; not a confirmed commercial quote."
+  },
+  "confidence_summary": {
+    "overall_status": "needs_review",
+    "low_confidence_fields": [
+      "setting_type",
+      "dimensions.ring_size_us",
+      "dimensions.band_width_mm",
+      "center_stone.carat",
+      "side_stones.gemstone_type"
+    ],
+    "review_flags": [
+      {
+        "code": "CV_BRIEF_COUNT_DISAGREEMENT",
+        "severity": "warning",
+        "message": "CV detected 21 visible component(s) vs. 0 implied by the brief (relative difference 2100%).",
+        "recommended_action": "Review the reference image and brief together; the visible count may be partial due to occlusion, or the brief may overstate the design."
+      },
+      {
+        "code": "INCOMPLETE_SPEC_FOR_PRICING",
+        "severity": "warning",
+        "message": "Specification is missing or uncertain in fields that affect pricing: center_stone.carat.",
+        "recommended_action": "Collect the missing details from the customer before issuing a firm quote."
+      },
+      {
+        "code": "IMAGE_QUALITY_INSUFFICIENT",
+        "severity": "warning",
+        "message": "Image quality or detection stability is insufficient for an automatic visible-stone count.",
+        "recommended_action": "Request a clearer, well-lit, closer photo of the reference piece if an exact visible count matters."
+      }
+    ]
+  },
+  "processing_metadata": {
+    "request_id": "docs-case-c",
+    "app_mode": "offline",
+    "extraction_method": "offline_fixture",
+    "provider": null,
+    "model_used": null,
+    "total_latency_ms": 41.81,
+    "extraction_latency_ms": 2.64,
+    "cv_latency_ms": 35.97,
+    "matching_latency_ms": 2.97,
+    "recovery_events": [],
+    "estimated_llm_cost_usd": null
+  }
+}
