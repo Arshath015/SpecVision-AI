@@ -71,9 +71,9 @@
       },
       "band_width_mm": {
         "known_field_accuracy": 1.0,
-        "known_field_n": 2,
+        "known_field_n": 1,
         "unknown_correctly_abstained_rate": 1.0,
-        "unknown_field_n": 12,
+        "unknown_field_n": 13,
         "fabricated_when_should_be_unknown": 0
       },
       "ring_size_us": {
@@ -116,9 +116,9 @@
   "operational": {
     "successful_cases": 16,
     "failed_cases": 0,
-    "mean_latency_ms": 36.19,
-    "median_latency_ms": 4.86,
-    "p95_latency_ms": 119.41,
+    "mean_latency_ms": 36.66,
+    "median_latency_ms": 4.78,
+    "p95_latency_ms": 123.94,
     "extraction_method_counts": {
       "offline_fixture": 14,
       "llm_repaired": 1,
@@ -137,7 +137,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": "SV-005",
-      "total_latency_ms": 6.67,
+      "total_latency_ms": 6.53,
       "review_flags": [
         "CV_UNAVAILABLE"
       ],
@@ -151,7 +151,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": null,
-      "total_latency_ms": 3.05,
+      "total_latency_ms": 3.02,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -168,7 +168,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": null,
-      "total_latency_ms": 2.28,
+      "total_latency_ms": 2.19,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -185,7 +185,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": "SV-001",
-      "total_latency_ms": 2.27,
+      "total_latency_ms": 2.32,
       "review_flags": [
         "CV_UNAVAILABLE"
       ],
@@ -199,7 +199,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": null,
-      "total_latency_ms": 2.08,
+      "total_latency_ms": 2.07,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -216,7 +216,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": null,
-      "total_latency_ms": 2.07,
+      "total_latency_ms": 2.1,
       "review_flags": [
         "IMPLAUSIBLE_CENTER_CARAT",
         "INCOMPLETE_SPEC_FOR_PRICING",
@@ -252,7 +252,7 @@
       "cv_available": false,
       "cv_count": null,
       "selected_product_id": null,
-      "total_latency_ms": 2.15,
+      "total_latency_ms": 2.18,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -316,7 +316,7 @@
       "cv_available": true,
       "cv_count": 17,
       "selected_product_id": null,
-      "total_latency_ms": 88.68,
+      "total_latency_ms": 83.5,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -333,7 +333,7 @@
       "cv_available": true,
       "cv_count": 37,
       "selected_product_id": null,
-      "total_latency_ms": 69.64,
+      "total_latency_ms": 70.33,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -350,7 +350,7 @@
       "cv_available": true,
       "cv_count": 21,
       "selected_product_id": "SV-001",
-      "total_latency_ms": 32.15,
+      "total_latency_ms": 32.39,
       "review_flags": [
         "CV_BRIEF_COUNT_DISAGREEMENT",
         "INCOMPLETE_SPEC_FOR_PRICING",
@@ -366,7 +366,7 @@
       "cv_available": true,
       "cv_count": 5,
       "selected_product_id": null,
-      "total_latency_ms": 60.56,
+      "total_latency_ms": 63.22,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -383,7 +383,7 @@
       "cv_available": true,
       "cv_count": 19,
       "selected_product_id": null,
-      "total_latency_ms": 63.56,
+      "total_latency_ms": 64.33,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",
@@ -400,7 +400,7 @@
       "cv_available": true,
       "cv_count": 16,
       "selected_product_id": null,
-      "total_latency_ms": 120.48,
+      "total_latency_ms": 123.94,
       "review_flags": [
         "CV_BRIEF_COUNT_DISAGREEMENT",
         "INCOMPLETE_SPEC_FOR_PRICING",
@@ -417,7 +417,7 @@
       "cv_available": true,
       "cv_count": 26,
       "selected_product_id": null,
-      "total_latency_ms": 119.41,
+      "total_latency_ms": 124.49,
       "review_flags": [
         "INCOMPLETE_SPEC_FOR_PRICING",
         "NO_RELIABLE_INVENTORY_MATCH",

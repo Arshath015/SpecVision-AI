@@ -7,7 +7,7 @@ Cases: 16  |  Successful: 16  |  Failed: 0
 |---|---|---|---|---|---|
 | metal_type | 1.0 | 12 | 1.0 | 2 | 0 |
 | metal_purity | 0.8 | 10 | 1.0 | 4 | 0 |
-| metal_color | 1.0 | 5 | 0.667 | 9 | 3 |
+| metal_color | 1.0 | 5 | 0.556 | 9 | 4 |
 | design_category | 0.714 | 7 | 1.0 | 7 | 0 |
 | setting_type | 1.0 | 4 | 1.0 | 10 | 0 |
 | center_stone_type | 1.0 | 12 | 1.0 | 2 | 0 |
@@ -18,7 +18,7 @@ Cases: 16  |  Successful: 16  |  Failed: 0
 |---|---|---|---|---|---|
 | center_stone_carat | 1.0 | 3 | 1.0 | 11 | 0 |
 | side_stone_count_total | 1.0 | 4 | 1.0 | 10 | 0 |
-| band_width_mm | 0.5 | 2 | 1.0 | 12 | 0 |
+| band_width_mm | 1.0 | 1 | 1.0 | 13 | 0 |
 | ring_size_us | None | 0 | 1.0 | 14 | 0 |
 
 ## Inventory matching
@@ -37,7 +37,7 @@ Cases: 16  |  Successful: 16  |  Failed: 0
 - False negative cases: []
 
 ## Operational
-- Mean latency: 1621.21ms  Median: 1690.26ms  P95: 2280.26ms
+- Mean latency: 1558.04ms  Median: 1590.84ms  P95: 2778.8ms
 - Extraction method distribution: {'llm_live': 13, 'llm_repaired': 1, 'safe_degradation': 1, 'llm_live_fallback_model': 1}
 - Total recovery events: 10
 - Live model calls: 15  Estimated cost: $0.0

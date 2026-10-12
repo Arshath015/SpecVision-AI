@@ -155,11 +155,14 @@ def _extract_side_count(text: str) -> int | None:
 
 
 def _extract_band_width(text: str) -> float | None:
+    # Only an explicit numeric measurement counts. Qualitative descriptors
+    # like "slim band" are deliberately left unknown rather than mapped to
+    # an invented number -- inventing "slim = 1.5mm" would violate the
+    # project's own never-fabricate-missing-values principle just as much
+    # as an LLM guessing a number would.
     m = re.search(r"(\d+(?:\.\d+)?)\s*mm", text)
     if m:
         return float(m.group(1))
-    if "slim band" in text or "thin band" in text:
-        return 1.5
     return None
 
 

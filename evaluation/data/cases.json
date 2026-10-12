@@ -17,7 +17,7 @@
         "metal_type": "gold", "metal_purity": "18k", "metal_color": "yellow",
         "design_category": "engagement_ring", "setting_type": null,
         "center_stone_type": "diamond", "center_stone_shape": "oval", "center_stone_carat": 1.5,
-        "side_stone_count_total": 12, "band_width_mm": 1.5, "ring_size_us": null
+        "side_stone_count_total": 12, "band_width_mm": null, "ring_size_us": null
       },
       "reference_visible_stone_count": null,
       "expected_no_reliable_match": false,
