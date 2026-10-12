@@ -7,6 +7,9 @@ local inventory catalog, a classical computer-vision estimate of visible
 gemstones, an indicative price, and an explicit confidence/review summary
 -- never silently inventing a value it isn't sure of.
 
+A short PDF summary with two real test-case results (one successful
+match, one documented CV limitation) is at `docs/SpecVision_AI_Summary.pdf`.
+
 ## Domain
 
 Custom jewelry, specifically rings and gemstone designs: engagement

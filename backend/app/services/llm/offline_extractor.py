@@ -135,6 +135,27 @@ def _to_number(token: str) -> int | None:
     return int(token) if token.isdigit() else _NUMBER_WORDS.get(token)
 
 
+def _extract_side_stone_type(text: str) -> GemstoneType | None:
+    """Looks for a gemstone keyword specifically near "side stone(s)" /
+    "accent stone(s)" phrasing -- NOT a whole-text search. A whole-text
+    search would misattribute the center stone's type to the side stones
+    whenever both are mentioned (e.g. "round diamond center stone ...
+    eight moissanite side stones" would otherwise match "diamond" first
+    purely because it appears earlier in the text, independent of which
+    stone it actually describes).
+    """
+    for value, keywords in _GEMSTONE_KEYWORDS.items():
+        for kw in keywords:
+            kw_pat = re.escape(kw)
+            pattern = (
+                rf"\b{kw_pat}\b(?:\s+\w+){{0,3}}\s+(?:side|accent)\s+stones?"
+                rf"|(?:side|accent)\s+stones?(?:\s+\w+){{0,3}}\s+\b{kw_pat}\b"
+            )
+            if re.search(pattern, text):
+                return value
+    return None
+
+
 def _extract_side_count(text: str) -> int | None:
     # Explicit "no side stones" / "without accent stones" -> 0.
     if re.search(r"\b(?:no|zero|without)\b[^.]{0,20}(?:side|accent)\s+stones?", text):
@@ -193,7 +214,7 @@ def extract_offline(brief: str) -> RawExtraction:
         "center_stone_type": _find_first_keyword(text, _GEMSTONE_KEYWORDS),
         "center_stone_shape": _find_first_keyword(text, _SHAPE_KEYWORDS),
         "center_stone_carat": _extract_carat(text),
-        "side_stone_type": _find_first_keyword(text, _GEMSTONE_KEYWORDS),
+        "side_stone_type": _extract_side_stone_type(text),
         "side_stone_shape": None,
         "side_stone_count_total": _extract_side_count(text),
         "side_stone_total_carat": None,

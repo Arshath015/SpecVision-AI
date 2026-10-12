@@ -1,0 +1,668 @@
+{
+  "specification": {
+    "product_type": {
+      "value": "ring",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Product type matched directly in the brief text by the offline rule-based extractor."
+    },
+    "design_category": {
+      "value": null,
+      "source": "unknown",
+      "confidence": "low",
+      "reason": "Design category was not stated in the brief and could not be confidently inferred."
+    },
+    "metal_type": {
+      "value": "silver",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Metal type matched directly in the brief text by the offline rule-based extractor."
+    },
+    "metal_purity": {
+      "value": "925_silver",
+      "source": "user_provided",
+      "confidence": "high",
+      "reason": "Metal purity matched directly in the brief text by the offline rule-based extractor."
+    },
+    "metal_color": {
+      "value": null,
+      "source": "unknown",
+      "confidence": "low",
+      "reason": "Metal color was not stated in the brief and could not be confidently inferred."
+    },
+    "setting_type": {
+      "value": null,
+      "source": "unknown",
+      "confidence": "low",
+      "reason": "Setting type was not stated in the brief and could not be confidently inferred."
+    },
+    "dimensions": {
+      "ring_size_us": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Ring size was not stated in the brief and could not be confidently inferred."
+      },
+      "band_width_mm": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Band width was not stated in the brief and could not be confidently inferred."
+      }
+    },
+    "center_stone": {
+      "gemstone_type": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Center stone type was not stated in the brief and could not be confidently inferred."
+      },
+      "shape": {
+        "value": "oval",
+        "source": "user_provided",
+        "confidence": "high",
+        "reason": "Center stone shape matched directly in the brief text by the offline rule-based extractor."
+      },
+      "carat": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Center stone carat was not stated in the brief and could not be confidently inferred."
+      }
+    },
+    "side_stones": {
+      "gemstone_type": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Side stone type was not stated in the brief and could not be confidently inferred."
+      },
+      "shape": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Side stone shape was not stated in the brief and could not be confidently inferred."
+      },
+      "count_total": {
+        "value": 0,
+        "source": "user_provided",
+        "confidence": "high",
+        "reason": "Side stone count matched directly in the brief text by the offline rule-based extractor."
+      },
+      "total_carat": {
+        "value": null,
+        "source": "unknown",
+        "confidence": "low",
+        "reason": "Side stone total carat was not stated in the brief and could not be confidently inferred."
+      }
+    },
+    "notes": "Extracted via deterministic offline keyword rules (no LLM call made)."
+  },
+  "inventory_match": {
+    "candidates": [
+      {
+        "product_id": "SV-013",
+        "name": "Engagement Ring with 6 Side Stones - White Silver",
+        "unit_price": 6032.0,
+        "currency": "USD",
+        "match_score": 0.609,
+        "passed_threshold": false,
+        "attribute_explanations": [
+          {
+            "attribute": "center_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "diamond",
+            "weight": 0.2,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center stone type missing data."
+          },
+          {
+            "attribute": "design_category",
+            "extracted_value": "unknown",
+            "inventory_value": "engagement_ring",
+            "weight": 0.15,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Design category missing data."
+          },
+          {
+            "attribute": "setting_type",
+            "extracted_value": "unknown",
+            "inventory_value": "cluster",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Setting type missing data."
+          },
+          {
+            "attribute": "center_stone_shape",
+            "extracted_value": "oval",
+            "inventory_value": "oval",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Center stone shape matches."
+          },
+          {
+            "attribute": "center_stone_carat",
+            "extracted_value": "unknown",
+            "inventory_value": "1.3-1.8",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center carat unknown vs. catalog range 1.3-1.8ct."
+          },
+          {
+            "attribute": "metal_type",
+            "extracted_value": "silver",
+            "inventory_value": "silver",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal type matches."
+          },
+          {
+            "attribute": "metal_purity",
+            "extracted_value": "925_silver",
+            "inventory_value": "925_silver",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal purity matches."
+          },
+          {
+            "attribute": "metal_color",
+            "extracted_value": "unknown",
+            "inventory_value": "white",
+            "weight": 0.05,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Metal color missing data."
+          },
+          {
+            "attribute": "side_stone_count",
+            "extracted_value": "0",
+            "inventory_value": "6",
+            "weight": 0.08,
+            "attribute_score": 0.3,
+            "status": "partial_match",
+            "explanation": "Side stone count 0 vs. catalog 6."
+          },
+          {
+            "attribute": "side_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "diamond",
+            "weight": 0.04,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Side stone type missing data."
+          },
+          {
+            "attribute": "band_width_mm",
+            "extracted_value": "unknown",
+            "inventory_value": "3.3",
+            "weight": 0.03,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Band width unknownmm vs. catalog 3.3mm."
+          }
+        ],
+        "item": {
+          "product_id": "SV-013",
+          "name": "Engagement Ring with 6 Side Stones - White Silver",
+          "product_type": "ring",
+          "design_category": "engagement_ring",
+          "metal_type": "silver",
+          "metal_purity": "925_silver",
+          "metal_color": "white",
+          "setting_type": "cluster",
+          "center_stone_type": "diamond",
+          "center_stone_shape": "oval",
+          "center_stone_carat_min": 1.3,
+          "center_stone_carat_max": 1.8,
+          "side_stone_type": "diamond",
+          "side_stone_count": 6,
+          "band_width_mm": 3.3,
+          "unit_price": 6032.0,
+          "currency": "USD"
+        }
+      },
+      {
+        "product_id": "SV-027",
+        "name": "White Silver Pearl Engagement Ring",
+        "unit_price": 292.0,
+        "currency": "USD",
+        "match_score": 0.591,
+        "passed_threshold": false,
+        "attribute_explanations": [
+          {
+            "attribute": "center_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "pearl",
+            "weight": 0.2,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center stone type missing data."
+          },
+          {
+            "attribute": "design_category",
+            "extracted_value": "unknown",
+            "inventory_value": "engagement_ring",
+            "weight": 0.15,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Design category missing data."
+          },
+          {
+            "attribute": "setting_type",
+            "extracted_value": "unknown",
+            "inventory_value": "prong",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Setting type missing data."
+          },
+          {
+            "attribute": "center_stone_shape",
+            "extracted_value": "oval",
+            "inventory_value": "unknown",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center stone shape missing data."
+          },
+          {
+            "attribute": "center_stone_carat",
+            "extracted_value": "unknown",
+            "inventory_value": "0.0-0.0",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center carat unknown vs. catalog range 0.0-0.0ct."
+          },
+          {
+            "attribute": "metal_type",
+            "extracted_value": "silver",
+            "inventory_value": "silver",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal type matches."
+          },
+          {
+            "attribute": "metal_purity",
+            "extracted_value": "925_silver",
+            "inventory_value": "925_silver",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal purity matches."
+          },
+          {
+            "attribute": "metal_color",
+            "extracted_value": "unknown",
+            "inventory_value": "white",
+            "weight": 0.05,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Metal color missing data."
+          },
+          {
+            "attribute": "side_stone_count",
+            "extracted_value": "0",
+            "inventory_value": "2",
+            "weight": 0.08,
+            "attribute_score": 0.7,
+            "status": "partial_match",
+            "explanation": "Side stone count 0 vs. catalog 2."
+          },
+          {
+            "attribute": "side_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "diamond",
+            "weight": 0.04,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Side stone type missing data."
+          },
+          {
+            "attribute": "band_width_mm",
+            "extracted_value": "unknown",
+            "inventory_value": "4.3",
+            "weight": 0.03,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Band width unknownmm vs. catalog 4.3mm."
+          }
+        ],
+        "item": {
+          "product_id": "SV-027",
+          "name": "White Silver Pearl Engagement Ring",
+          "product_type": "ring",
+          "design_category": "engagement_ring",
+          "metal_type": "silver",
+          "metal_purity": "925_silver",
+          "metal_color": "white",
+          "setting_type": "prong",
+          "center_stone_type": "pearl",
+          "center_stone_shape": "unknown",
+          "center_stone_carat_min": 0.0,
+          "center_stone_carat_max": 0.0,
+          "side_stone_type": "diamond",
+          "side_stone_count": 2,
+          "band_width_mm": 4.3,
+          "unit_price": 292.0,
+          "currency": "USD"
+        }
+      },
+      {
+        "product_id": "SV-034",
+        "name": "Wedding Band Oval White Silver Ring",
+        "unit_price": 2210.0,
+        "currency": "USD",
+        "match_score": 0.585,
+        "passed_threshold": false,
+        "attribute_explanations": [
+          {
+            "attribute": "center_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "ruby",
+            "weight": 0.2,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center stone type missing data."
+          },
+          {
+            "attribute": "design_category",
+            "extracted_value": "unknown",
+            "inventory_value": "wedding_band",
+            "weight": 0.15,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Design category missing data."
+          },
+          {
+            "attribute": "setting_type",
+            "extracted_value": "unknown",
+            "inventory_value": "cluster",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Setting type missing data."
+          },
+          {
+            "attribute": "center_stone_shape",
+            "extracted_value": "oval",
+            "inventory_value": "oval",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Center stone shape matches."
+          },
+          {
+            "attribute": "center_stone_carat",
+            "extracted_value": "unknown",
+            "inventory_value": "0.8-1.3",
+            "weight": 0.1,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Center carat unknown vs. catalog range 0.8-1.3ct."
+          },
+          {
+            "attribute": "metal_type",
+            "extracted_value": "silver",
+            "inventory_value": "silver",
+            "weight": 0.1,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal type matches."
+          },
+          {
+            "attribute": "metal_purity",
+            "extracted_value": "925_silver",
+            "inventory_value": "925_silver",
+            "weight": 0.05,
+            "attribute_score": 1.0,
+            "status": "exact_match",
+            "explanation": "Metal purity matches."
+          },
+          {
+            "attribute": "metal_color",
+            "extracted_value": "unknown",
+            "inventory_value": "white",
+            "weight": 0.05,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Metal color missing data."
+          },
+          {
+            "attribute": "side_stone_count",
+            "extracted_value": "0",
+            "inventory_value": "16",
+            "weight": 0.08,
+            "attribute_score": 0.0,
+            "status": "contradiction",
+            "explanation": "Side stone count 0 vs. catalog 16."
+          },
+          {
+            "attribute": "side_stone_type",
+            "extracted_value": "unknown",
+            "inventory_value": "diamond",
+            "weight": 0.04,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Side stone type missing data."
+          },
+          {
+            "attribute": "band_width_mm",
+            "extracted_value": "unknown",
+            "inventory_value": "3.3",
+            "weight": 0.03,
+            "attribute_score": 0.5,
+            "status": "missing_data",
+            "explanation": "Band width unknownmm vs. catalog 3.3mm."
+          }
+        ],
+        "item": {
+          "product_id": "SV-034",
+          "name": "Wedding Band Oval White Silver Ring",
+          "product_type": "ring",
+          "design_category": "wedding_band",
+          "metal_type": "silver",
+          "metal_purity": "925_silver",
+          "metal_color": "white",
+          "setting_type": "cluster",
+          "center_stone_type": "ruby",
+          "center_stone_shape": "oval",
+          "center_stone_carat_min": 0.8,
+          "center_stone_carat_max": 1.3,
+          "side_stone_type": "diamond",
+          "side_stone_count": 16,
+          "band_width_mm": 3.3,
+          "unit_price": 2210.0,
+          "currency": "USD"
+        }
+      }
+    ],
+    "selected": null,
+    "threshold_used": 0.72,
+    "reliable_match_found": false,
+    "explanation": "No candidate reached the auto-selection threshold of 0.72 (best score: 0.61). A high similarity score does not prove exact product equivalence; results below threshold are shown for reference only and require human review."
+  },
+  "cv_estimate": {
+    "method": "contour_and_hough_hybrid",
+    "available": true,
+    "estimated_visible_count": 16,
+    "detections": [
+      {
+        "x": 460,
+        "y": 257,
+        "radius": 46,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 469,
+        "y": 348,
+        "radius": 42,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 382,
+        "y": 181,
+        "radius": 44,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 378,
+        "y": 273,
+        "radius": 43,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 519,
+        "y": 268,
+        "radius": 27,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 355,
+        "y": 353,
+        "radius": 46,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 493,
+        "y": 201,
+        "radius": 27,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 408,
+        "y": 424,
+        "radius": 42,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 444,
+        "y": 172,
+        "radius": 31,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 414,
+        "y": 366,
+        "radius": 33,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 526,
+        "y": 234,
+        "radius": 19,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 490,
+        "y": 303,
+        "radius": 23,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 417,
+        "y": 316,
+        "radius": 22,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 345,
+        "y": 162,
+        "radius": 11,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 318,
+        "y": 250,
+        "radius": 23,
+        "detection_source": "hough_circle"
+      },
+      {
+        "x": 528,
+        "y": 333,
+        "radius": 23,
+        "detection_source": "hough_circle"
+      }
+    ],
+    "confidence": "high",
+    "reason": "Detected 16 visible small component(s) via Hough-circle + contour analysis (164 circular, 1 contour-based before duplicate suppression).",
+    "image_quality_warnings": [],
+    "suitable_for_automatic_use": true,
+    "annotated_image_base64": null,
+    "processing_time_ms": 105.14,
+    "brief_claimed_count": 0,
+    "disagreement_with_brief": true,
+    "disagreement_ratio": 16.0
+  },
+  "price_estimate": {
+    "available": false,
+    "currency": "USD",
+    "base_unit_price": null,
+    "adjustments": [],
+    "indicative_total": null,
+    "formula_description": "",
+    "assumptions": [],
+    "is_confirmed_quote": false,
+    "reason": "No inventory candidate met the auto-selection matching threshold, so there is no defensible catalog reference to price from. An indicative price would be a guess."
+  },
+  "confidence_summary": {
+    "overall_status": "needs_review",
+    "low_confidence_fields": [
+      "design_category",
+      "metal_color",
+      "setting_type",
+      "dimensions.ring_size_us",
+      "dimensions.band_width_mm",
+      "center_stone.gemstone_type",
+      "center_stone.carat",
+      "side_stones.gemstone_type"
+    ],
+    "review_flags": [
+      {
+        "code": "CV_BRIEF_COUNT_DISAGREEMENT",
+        "severity": "warning",
+        "message": "CV detected 16 visible component(s) vs. 0 implied by the brief (relative difference 1600%).",
+        "recommended_action": "Review the reference image and brief together; the visible count may be partial due to occlusion, or the brief may overstate the design."
+      },
+      {
+        "code": "INCOMPLETE_SPEC_FOR_PRICING",
+        "severity": "warning",
+        "message": "Specification is missing or uncertain in fields that affect pricing: center_stone.gemstone_type, center_stone.carat.",
+        "recommended_action": "Collect the missing details from the customer before issuing a firm quote."
+      },
+      {
+        "code": "NO_RELIABLE_INVENTORY_MATCH",
+        "severity": "warning",
+        "message": "No candidate reached the auto-selection threshold of 0.72 (best score: 0.61). A high similarity score does not prove exact product equivalence; results below threshold are shown for reference only and require human review.",
+        "recommended_action": "Treat the top candidates as reference points only; consider a custom quote."
+      },
+      {
+        "code": "PRICE_UNAVAILABLE",
+        "severity": "warning",
+        "message": "No inventory candidate met the auto-selection matching threshold, so there is no defensible catalog reference to price from. An indicative price would be a guess.",
+        "recommended_action": "A defensible indicative price requires a reliable inventory match."
+      }
+    ]
+  },
+  "processing_metadata": {
+    "request_id": "docs-case-b",
+    "app_mode": "offline",
+    "extraction_method": "offline_fixture",
+    "provider": null,
+    "model_used": null,
+    "total_latency_ms": 140.47,
+    "extraction_latency_ms": 1.93,
+    "cv_latency_ms": 136.42,
+    "matching_latency_ms": 1.87,
+    "recovery_events": [],
+    "estimated_llm_cost_usd": null
+  }
+}

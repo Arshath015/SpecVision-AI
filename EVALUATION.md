@@ -361,11 +361,29 @@ fixed in the code (not worked around in the dataset):
    would have understated extraction accuracy for reasons that had
    nothing to do with the extractor. Corrected to reflect the stated
    methodology (score text extraction against text).
+6. **Side-stone type confused with center-stone type.** Found while
+   preparing supporting documentation, not during the original
+   evaluation run -- `side_stone_type` was extracted with a whole-text
+   keyword search, identical to `center_stone_type`. For a brief like
+   "...round diamond center stone, ... eight moissanite side stones...",
+   this silently returned `diamond` for the side stones too, since
+   "diamond" appears earlier in the text regardless of which stone it
+   actually describes. This slipped past the evaluation harness entirely
+   because `side_stone_type` was never one of the fields scored in
+   `cases.json`'s gold standard -- a gap in evaluation coverage, not
+   just an extractor bug. Fixed by requiring the gemstone keyword to
+   appear within a short word-window of "side stone(s)"/"accent
+   stone(s)" phrasing rather than anywhere in the brief (see
+   `_extract_side_stone_type` in `offline_extractor.py`). A regression
+   test was added. This also had a real downstream effect: for the
+   catalog-match case in `EVALUATION.md`'s own example, the inventory
+   match score rose from 0.96 to a perfect 1.0 once the side stone type
+   was no longer wrongly scored as a contradiction against the catalog.
 
 None of these fixes were "tuning to the test set" in the sense the brief
 warns against -- each is a general code change (not a dataset-specific
-hack) that was re-verified against the full pytest suite (51/51 passing)
-after the change.
+hack) that was re-verified against the full pytest suite (52/52 passing
+as of fix #6) after the change.
 
 ## Next steps if this were a longer-running project
 
