@@ -180,7 +180,10 @@ real recovery code path via a monkeypatched provider, regardless of
 
 The live run's recovery events are **not simulated** -- they are real
 failures from the real Groq API during this run. Two concrete examples,
-pulled directly from `evaluation_live.json`:
+pulled directly from `evaluation_live.json` (note: because Groq's
+free-tier models are not guaranteed deterministic run-to-run, which
+specific case hits a given failure mode can shift between runs -- these
+two examples are taken from the currently committed `evaluation_live.json`):
 
 ```
 case-08 (llm_repaired):
@@ -188,7 +191,7 @@ case-08 (llm_repaired):
     JSONDecodeError: Expecting property name enclosed in double quotes
   json_repaired: model=openai/gpt-oss-120b succeeded on retry attempt 2
 
-case-16 (llm_live_fallback_model):
+case-15 (llm_live_fallback_model):
   provider_call_failed: model=openai/gpt-oss-120b attempt=1: Groq returned HTTP 429
   provider_call_failed: model=openai/gpt-oss-120b attempt=2: Groq returned HTTP 429
   primary_model_exhausted: trying fallback model

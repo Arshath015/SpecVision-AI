@@ -18,23 +18,21 @@ colors), platinum, and silver.
 
 ```mermaid
 flowchart LR
-    subgraph Frontend [React + TypeScript + Vite]
-        UI[Dashboard]
+    UI["Dashboard<br/>React + TypeScript + Vite"]
+
+    subgraph Backend["FastAPI backend"]
+        API["POST /analyze"]
+        Extract["LLM extraction<br/>Groq live or offline fixture"]
+        Spec["Specification builder<br/>+ plausibility checks"]
+        CV["Classical CV<br/>OpenCV Hough + contour"]
+        Match["Deterministic<br/>inventory matcher"]
+        Price["Pricing engine"]
+        Conf["Confidence &amp; review"]
     end
 
-    subgraph Backend [FastAPI]
-        API[/POST /analyze/]
-        Extract[LLM extraction\nGroq live or offline fixture]
-        Spec[Specification builder\n+ plausibility checks]
-        CV[Classical CV\nOpenCV Hough + contour]
-        Match[Deterministic\ninventory matcher]
-        Price[Pricing engine]
-        Conf[Confidence & review]
-    end
+    Inv[("inventory.json<br/>42 items")]
 
-    Inv[(inventory.json\n42 items)]
-
-    UI -- brief + optional image --> API
+    UI -->|"brief + optional image"| API
     API --> Extract --> Spec
     API --> CV
     Spec --> Match
@@ -45,7 +43,7 @@ flowchart LR
     Match --> Conf
     Price --> Conf
     Conf --> API
-    API -- AnalyzeResponse --> UI
+    API -->|"AnalyzeResponse"| UI
 ```
 
 Business logic lives entirely in `backend/app/services/*`, independent of

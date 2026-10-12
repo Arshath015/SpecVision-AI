@@ -37,7 +37,7 @@ Cases: 16  |  Successful: 16  |  Failed: 0
 - False negative cases: []
 
 ## Operational
-- Mean latency: 36.66ms  Median: 4.78ms  P95: 123.94ms
+- Mean latency: 36.19ms  Median: 4.9ms  P95: 120.15ms
 - Extraction method distribution: {'offline_fixture': 14, 'llm_repaired': 1, 'safe_degradation': 1}
 - Total recovery events: 7
 - Live model calls: 1  Estimated cost: $0.0
