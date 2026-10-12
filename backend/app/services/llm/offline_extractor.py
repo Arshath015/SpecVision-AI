@@ -110,7 +110,10 @@ def _find_first(text: str, mapping: dict) -> object | None:
 def _find_first_keyword(text: str, mapping: dict) -> object | None:
     for value, keywords in mapping.items():
         for kw in keywords:
-            if kw in text:
+            # Word-boundary match -- plain substring containment would let
+            # "pear" false-positive inside "pearl", "gold" inside a longer
+            # compound word, etc.
+            if re.search(r"\b" + re.escape(kw) + r"\b", text):
                 return value
     return None
 
@@ -125,18 +128,29 @@ def _extract_carat(text: str) -> float | None:
     return None
 
 
+_NUM_WORD_PATTERN = r"(\d+|" + "|".join(_NUMBER_WORDS.keys()) + r")"
+
+
+def _to_number(token: str) -> int | None:
+    return int(token) if token.isdigit() else _NUMBER_WORDS.get(token)
+
+
 def _extract_side_count(text: str) -> int | None:
+    # Explicit "no side stones" / "without accent stones" -> 0.
+    if re.search(r"\b(?:no|zero|without)\b[^.]{0,20}(?:side|accent)\s+stones?", text):
+        return 0
     # "six small stones on each side" -> 6 per side -> 12 total
-    m = re.search(r"(\d+|\w+)\s+(?:small\s+)?(?:stones?|diamonds?)\s+on\s+each\s+side", text)
+    m = re.search(_NUM_WORD_PATTERN + r"\s+(?:small\s+)?(?:stones?|diamonds?)\s+on\s+each\s+side", text)
     if m:
-        token = m.group(1)
-        n = int(token) if token.isdigit() else _NUMBER_WORDS.get(token)
+        n = _to_number(m.group(1))
         if n is not None:
             return n * 2
-    # "12 side stones" / "total of 10 accent stones"
-    m = re.search(r"(\d+)\s+(?:side|accent)\s+stones?", text)
+    # "12 side stones" / "eight moissanite side stones" / "total of 10 accent stones"
+    m = re.search(_NUM_WORD_PATTERN + r"(?:\s+\w+){0,2}\s+(?:side|accent)\s+stones?", text)
     if m:
-        return int(m.group(1))
+        n = _to_number(m.group(1))
+        if n is not None:
+            return n
     return None
 
 

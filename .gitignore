@@ -20,6 +20,3 @@ frontend/.vite/
 *.log
 .DS_Store
 Thumbs.db
-
-evaluation/results/*.json
-!evaluation/results/.gitkeep

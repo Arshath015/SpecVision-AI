@@ -1,0 +1,271 @@
+{
+  "dataset_info": {
+    "name": "SpecVision AI evaluation set",
+    "version": "2.0",
+    "case_count": 16,
+    "image_count": 7,
+    "image_provenance": "All images in evaluation/images are real photographs downloaded from Wikimedia Commons under CC BY / CC BY-SA licenses -- see evaluation/images/PROVENANCE.md for per-file source links and license terms. None are AI-generated or synthetic. A separate evaluation/images/synthetic/ folder holds programmatically-drawn illustrations used only as deterministic pytest fixtures, not as part of this evaluation.",
+    "notes": "Gold-standard categorical/numeric fields were authored by hand from each brief's text. reference_visible_stone_count values for photographs are the author's own visual count from the published photo and are explicitly approximate for busy/ornate designs (noted per case) -- they are not a manufacturer specification. A null gold-standard value means 'the brief does not support a confident answer' and is scored as part of the unknown-handling rate, not as a wrong answer."
+  },
+  "cases": [
+    {
+      "case_id": "case-01",
+      "description": "Complete, unambiguous brief; no image. Baseline happy path.",
+      "brief": "I need a custom 18K yellow-gold engagement ring with an oval center diamond, six small stones on each side, approximately a 1.5-carat center stone, and a slim band.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": "yellow",
+        "design_category": "engagement_ring", "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "oval", "center_stone_carat": 1.5,
+        "side_stone_count_total": 12, "band_width_mm": 1.5, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": false,
+      "expected_review": false,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-02",
+      "description": "Partial brief: metal and stone given, nothing else. Tests graceful handling of an incomplete spec.",
+      "brief": "Platinum ring with a sapphire centerpiece.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "platinum", "metal_purity": "950_platinum", "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "sapphire", "center_stone_shape": null, "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": false,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-03",
+      "description": "Deliberately vague brief -- almost everything should remain unknown rather than guessed.",
+      "brief": "Something elegant for my partner, nothing too flashy.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": null, "metal_purity": null, "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": null, "center_stone_shape": null, "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-04",
+      "description": "Complete, specific brief designed to closely match a known catalog item (SV-001) -- known inventory match case.",
+      "brief": "A solitaire ring in 18k yellow gold with a round diamond center stone, about 0.45 carats, tension setting, eight moissanite side stones, band width 1.7mm.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": "yellow",
+        "design_category": "solitaire", "setting_type": "tension",
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": 0.45,
+        "side_stone_count_total": 8, "band_width_mm": 1.7, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": false,
+      "expected_inventory_product_ids": ["SV-001"],
+      "expected_review": false,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-05",
+      "description": "Unusual attribute combination not well represented in the catalog -- no inventory item should be a reliable match.",
+      "brief": "A palladium cocktail ring with a large pearl centerpiece in a cluster setting.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "palladium", "metal_purity": null, "metal_color": null,
+        "design_category": "cocktail_ring", "setting_type": "cluster",
+        "center_stone_type": "pearl", "center_stone_shape": null, "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-06",
+      "description": "Implausible stated carat weight -- deterministic plausibility check must flag this for human review.",
+      "brief": "I want an 18k gold ring with a 50 carat round diamond center stone.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": 50.0,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-07",
+      "description": "Metal type and purity contradict each other in the text -- deterministic consistency check must flag this.",
+      "brief": "A silver ring, 18 karat, round diamond center stone.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "silver", "metal_purity": "18k", "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-08",
+      "description": "Simulated provider behavior: first model response is malformed JSON, retry succeeds. Exercises the live-mode repair path end-to-end (no real network call -- the provider is monkeypatched by the runner).",
+      "brief": "An 18k yellow gold ring with a round diamond.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": "yellow",
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": true,
+      "expected_review": false,
+      "simulate_llm_failure": "malformed_then_recover"
+    },
+    {
+      "case_id": "case-09",
+      "description": "Simulated provider behavior: both primary and fallback models fail every attempt -- system must safely degrade to offline extraction rather than crash or fabricate a result.",
+      "brief": "An 18k yellow gold ring with a round diamond.",
+      "image": null,
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": "yellow",
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": null,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": "total_failure"
+    },
+    {
+      "case_id": "case-10",
+      "description": "Real photo: white-gold halo engagement ring with a round center diamond and a ring of small pave side stones. Visible side-stone count is approximate (ornate halo, exact count hard to verify even by eye).",
+      "brief": "An 18k white gold halo engagement ring with a round center diamond and small pave side stones around the halo.",
+      "image": "engagement_2carat_diamond.jpg",
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": "white",
+        "design_category": "halo_ring", "setting_type": "halo",
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 14,
+      "reference_count_is_approximate": true,
+      "expected_no_reliable_match": false,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-11",
+      "description": "Real photo: white-gold ring with princess-cut diamonds channel-set along both shoulders, photographed on a textured surface. A genuinely hard CV case -- facet reflections and background texture are expected to cause overcounting.",
+      "brief": "A white gold engagement ring with a round center diamond and princess-cut channel-set side stones along the band.",
+      "image": "classic_diamond_engagement.jpg",
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": null, "metal_color": "white",
+        "design_category": "engagement_ring", "setting_type": "channel",
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 10,
+      "reference_count_is_approximate": true,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-12",
+      "description": "Real photo: plain yellow-gold solitaire, top-down product shot, no side stones. Tests whether CV can correctly report zero on a clean image or whether it false-positives on the band's polished-metal highlight.",
+      "brief": "An 18k yellow gold solitaire ring with a round diamond center stone and no side stones.",
+      "image": "diamond_ring_top_down.jpg",
+      "gold_standard": {
+        "metal_type": "gold", "metal_purity": "18k", "metal_color": "yellow",
+        "design_category": "solitaire", "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": 0, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 0,
+      "expected_no_reliable_match": false,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-13",
+      "description": "Real photo: solitaire ring worn on a hand, off-center composition, shallow depth of field. Realistic lifestyle photography rather than a studio product shot.",
+      "brief": "A platinum solitaire engagement ring with a round diamond, photographed worn on a hand.",
+      "image": "diamond_ring_on_hand.jpg",
+      "gold_standard": {
+        "metal_type": "platinum", "metal_purity": "950_platinum", "metal_color": null,
+        "design_category": "solitaire", "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": "round", "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 0,
+      "expected_no_reliable_match": false,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-14",
+      "description": "Real photo: ring shown from an unusual front-on angle in a display box, with a rectangular (emerald-cut-like) center stone and no side stones visible from this viewpoint, plus background signage text.",
+      "brief": "A diamond ring with a rectangular center stone, shown in a jewelry display box.",
+      "image": "engagement_ring_stephen_durham.jpg",
+      "gold_standard": {
+        "metal_type": null, "metal_purity": null, "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "diamond", "center_stone_shape": null, "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 0,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-15",
+      "description": "Real photo: sterling silver ring with a large oval citrine and an ornate pierced/filigree band, no side stones. Included specifically because the filigree cutwork is expected to be mistaken for small stones by the classical pipeline -- a documented worst-case failure (see EVALUATION.md).",
+      "brief": "A sterling silver ring with a large oval citrine centerpiece and an open filigree band, no side stones.",
+      "image": "citrine_silver_ring.jpg",
+      "gold_standard": {
+        "metal_type": "silver", "metal_purity": "925_silver", "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": "other", "center_stone_shape": "oval", "center_stone_carat": null,
+        "side_stone_count_total": 0, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 0,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    },
+    {
+      "case_id": "case-16",
+      "description": "Real photo: sterling silver coil ring with no gemstone at all and heavy specular reflections off polished metal. A true-negative robustness case for CV ('this ring has nothing to count').",
+      "brief": "A sterling silver coil ring with no gemstone.",
+      "image": "coil_silver_ring.jpg",
+      "gold_standard": {
+        "metal_type": "silver", "metal_purity": "925_silver", "metal_color": null,
+        "design_category": null, "setting_type": null,
+        "center_stone_type": null, "center_stone_shape": null, "center_stone_carat": null,
+        "side_stone_count_total": null, "band_width_mm": null, "ring_size_us": null
+      },
+      "reference_visible_stone_count": 0,
+      "expected_no_reliable_match": true,
+      "expected_review": true,
+      "simulate_llm_failure": null
+    }
+  ]
+}

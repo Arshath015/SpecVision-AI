@@ -1,0 +1,430 @@
+{
+  "run_mode": "offline",
+  "is_genuine_live_run": false,
+  "case_count": 16,
+  "extraction": {
+    "categorical": {
+      "metal_type": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 12,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 2,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "metal_purity": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 10,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 4,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "metal_color": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 5,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 9,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "design_category": {
+        "known_field_accuracy": 0.714,
+        "known_field_n": 7,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 7,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "setting_type": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 4,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 10,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "center_stone_type": {
+        "known_field_accuracy": 0.917,
+        "known_field_n": 12,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 2,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "center_stone_shape": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 9,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 5,
+        "fabricated_when_should_be_unknown": 0
+      }
+    },
+    "numeric": {
+      "center_stone_carat": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 3,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 11,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "side_stone_count_total": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 4,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 10,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "band_width_mm": {
+        "known_field_accuracy": 1.0,
+        "known_field_n": 2,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 12,
+        "fabricated_when_should_be_unknown": 0
+      },
+      "ring_size_us": {
+        "known_field_accuracy": null,
+        "known_field_n": 0,
+        "unknown_correctly_abstained_rate": 1.0,
+        "unknown_field_n": 14,
+        "fabricated_when_should_be_unknown": 0
+      }
+    }
+  },
+  "inventory_matching": {
+    "top1_hit_rate": 1.0,
+    "top1_n": 1,
+    "top3_hit_rate": 1.0,
+    "top3_n": 1,
+    "no_reliable_match_handling_accuracy": 1.0,
+    "no_reliable_match_n": 8,
+    "hit_definition": "A hit means the catalog product_id appears at the given rank cutoff among result.inventory_match.candidates, ranked by the deterministic weighted matcher."
+  },
+  "computer_vision": {
+    "mae": 16.71,
+    "evaluated_images": 7,
+    "unavailable_images_excluded_from_mae": 0,
+    "note": "MAE is computed only over cases with a human-labeled reference_visible_stone_count and an available CV result. Images where CV correctly reported 'unavailable' are excluded from MAE (that is a successful honest-failure, not an error to average in) and counted separately."
+  },
+  "review_behavior": {
+    "review_flag_rate": 0.875,
+    "precision": 0.929,
+    "recall": 1.0,
+    "true_positive": 13,
+    "false_positive": 1,
+    "false_negative": 0,
+    "true_negative": 2,
+    "false_positive_cases": [
+      "case-08"
+    ],
+    "false_negative_cases": []
+  },
+  "operational": {
+    "successful_cases": 16,
+    "failed_cases": 0,
+    "mean_latency_ms": 36.19,
+    "median_latency_ms": 4.86,
+    "p95_latency_ms": 119.41,
+    "extraction_method_counts": {
+      "offline_fixture": 14,
+      "llm_repaired": 1,
+      "safe_degradation": 1
+    },
+    "total_recovery_events": 7,
+    "live_model_calls": 1,
+    "estimated_total_llm_cost_usd": 0.0
+  },
+  "per_case": [
+    {
+      "case_id": "case-01",
+      "error": null,
+      "overall_status": "auto_approved",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": "SV-005",
+      "total_latency_ms": 6.67,
+      "review_flags": [
+        "CV_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-02",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": null,
+      "total_latency_ms": 3.05,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "CV_UNAVAILABLE",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-03",
+      "error": null,
+      "overall_status": "failed",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": null,
+      "total_latency_ms": 2.28,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "CV_UNAVAILABLE",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-04",
+      "error": null,
+      "overall_status": "auto_approved",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": "SV-001",
+      "total_latency_ms": 2.27,
+      "review_flags": [
+        "CV_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-05",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": null,
+      "total_latency_ms": 2.08,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "CV_UNAVAILABLE",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-06",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": null,
+      "total_latency_ms": 2.07,
+      "review_flags": [
+        "IMPLAUSIBLE_CENTER_CARAT",
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "CV_UNAVAILABLE",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-07",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": null,
+      "total_latency_ms": 2.02,
+      "review_flags": [
+        "METAL_TYPE_PURITY_CONTRADICTION",
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "CV_UNAVAILABLE",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-08",
+      "error": null,
+      "overall_status": "failed",
+      "extraction_method": "llm_repaired",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": null,
+      "total_latency_ms": 2.15,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "CV_UNAVAILABLE",
+        "EXTRACTION_RECOVERED",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": [
+        {
+          "action": "invalid_model_output",
+          "detail": "model=openai/gpt-oss-120b attempt=1: JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 3 (char 2)"
+        },
+        {
+          "action": "json_repaired",
+          "detail": "model=openai/gpt-oss-120b succeeded on retry attempt 2"
+        }
+      ]
+    },
+    {
+      "case_id": "case-09",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "safe_degradation",
+      "cv_available": false,
+      "cv_count": null,
+      "selected_product_id": "SV-001",
+      "total_latency_ms": 2.0,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "CV_UNAVAILABLE",
+        "EXTRACTION_DEGRADED"
+      ],
+      "recovery_events": [
+        {
+          "action": "provider_call_failed",
+          "detail": "model=openai/gpt-oss-120b attempt=1: simulated timeout"
+        },
+        {
+          "action": "provider_call_failed",
+          "detail": "model=openai/gpt-oss-120b attempt=2: simulated timeout"
+        },
+        {
+          "action": "primary_model_exhausted",
+          "detail": "Primary model openai/gpt-oss-120b failed after 2 attempt(s); trying fallback model."
+        },
+        {
+          "action": "provider_call_failed",
+          "detail": "model=openai/gpt-oss-20b attempt=1: simulated timeout"
+        },
+        {
+          "action": "safe_degradation",
+          "detail": "Both primary and fallback models failed; degrading to deterministic offline extraction."
+        }
+      ]
+    },
+    {
+      "case_id": "case-10",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 17,
+      "selected_product_id": null,
+      "total_latency_ms": 88.68,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "IMAGE_QUALITY_INSUFFICIENT",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-11",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 37,
+      "selected_product_id": null,
+      "total_latency_ms": 69.64,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "IMAGE_QUALITY_INSUFFICIENT",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-12",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 21,
+      "selected_product_id": "SV-001",
+      "total_latency_ms": 32.15,
+      "review_flags": [
+        "CV_BRIEF_COUNT_DISAGREEMENT",
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "IMAGE_QUALITY_INSUFFICIENT"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-13",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 5,
+      "selected_product_id": null,
+      "total_latency_ms": 60.56,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "IMAGE_QUALITY_INSUFFICIENT",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-14",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 19,
+      "selected_product_id": null,
+      "total_latency_ms": 63.56,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "IMAGE_QUALITY_INSUFFICIENT",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-15",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 16,
+      "selected_product_id": null,
+      "total_latency_ms": 120.48,
+      "review_flags": [
+        "CV_BRIEF_COUNT_DISAGREEMENT",
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    },
+    {
+      "case_id": "case-16",
+      "error": null,
+      "overall_status": "needs_review",
+      "extraction_method": "offline_fixture",
+      "cv_available": true,
+      "cv_count": 26,
+      "selected_product_id": null,
+      "total_latency_ms": 119.41,
+      "review_flags": [
+        "INCOMPLETE_SPEC_FOR_PRICING",
+        "NO_RELIABLE_INVENTORY_MATCH",
+        "IMAGE_QUALITY_INSUFFICIENT",
+        "PRICE_UNAVAILABLE"
+      ],
+      "recovery_events": []
+    }
+  ]
+}

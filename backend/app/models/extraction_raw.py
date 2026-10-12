@@ -32,17 +32,24 @@ class RawExtraction(BaseModel):
     metal_color: MetalColor | None = None
     setting_type: SettingType | None = None
 
-    ring_size_us: float | None = Field(default=None, ge=1, le=16)
-    band_width_mm: float | None = Field(default=None, gt=0, le=15)
+    # Bounds here are a syntactic sanity net against LLM hallucination
+    # (negative numbers, typos like 5000 instead of 0.5) -- NOT the domain
+    # plausibility judgment. A user-stated value that is unusual but
+    # numerically well-formed (e.g. "a 50 carat diamond") must still pass
+    # through so app.services.confidence's deterministic plausibility
+    # checks can flag it for human review. Tighter, ring-specific bounds
+    # live there (see CARAT_PLAUSIBLE_MAX etc. in app/services/confidence.py).
+    ring_size_us: float | None = Field(default=None, ge=0, le=50)
+    band_width_mm: float | None = Field(default=None, gt=0, le=50)
 
     center_stone_type: GemstoneType | None = None
     center_stone_shape: GemstoneShape | None = None
-    center_stone_carat: float | None = Field(default=None, gt=0, le=30)
+    center_stone_carat: float | None = Field(default=None, gt=0, le=200)
 
     side_stone_type: GemstoneType | None = None
     side_stone_shape: GemstoneShape | None = None
     side_stone_count_total: int | None = Field(default=None, ge=0, le=300)
-    side_stone_total_carat: float | None = Field(default=None, ge=0, le=30)
+    side_stone_total_carat: float | None = Field(default=None, ge=0, le=200)
 
     notes: str | None = None
 

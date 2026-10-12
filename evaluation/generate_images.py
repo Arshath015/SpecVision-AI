@@ -1,13 +1,12 @@
-"""Generates the synthetic reference-ring images used by the evaluation
-dataset and the frontend's bundled sample gallery.
+"""Generates synthetic reference-ring images used ONLY as controlled pytest
+fixtures (backend/tests/test_cv_pipeline.py) -- precise, repeatable ground
+truth for unit testing the CV pipeline's edge-case handling (zero stones,
+below-minimum resolution, heavy blur, etc).
 
-These are programmatically drawn illustrations (simple shapes/gradients),
-not photographs and not sourced from any third party -- there is no
-licensing concern, but they are also not photo-realistic. Ground-truth
-visible-stone counts recorded in evaluation/data/cases.json were set by
-construction (we drew exactly N visible circles), so they are an exact
-label for "what a human could count in this image", not a claim about
-real jewelry photography.
+The main labeled evaluation dataset (evaluation/data/cases.json) uses real
+photographs instead -- see evaluation/images/PROVENANCE.md. These
+synthetic drawings (simple shapes/gradients via OpenCV) are not
+photographs and are not used for the evaluation metrics in EVALUATION.md.
 
 Run with: python evaluation/generate_images.py
 """
@@ -20,8 +19,7 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-OUT_DIR = Path(__file__).resolve().parent / "images"
-FRONTEND_SAMPLES_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "sample-images"
+OUT_DIR = Path(__file__).resolve().parent / "images" / "synthetic"
 
 
 def _band(canvas: np.ndarray, center, band_radius, band_thickness, color_bgr):
@@ -149,19 +147,7 @@ def main():
     rose_14 = make_ring_image(14, metal_color_bgr=(120, 150, 230), stone_radius=9, seed=11)
     save("ring_rose_eternity_14stones.jpg", rose_14)
 
-    print(f"Generated images in {OUT_DIR}")
-
-    # Copy a representative subset into the frontend's sample gallery.
-    FRONTEND_SAMPLES_DIR.mkdir(parents=True, exist_ok=True)
-    for name in [
-        "ring_clear_6stones.jpg",
-        "ring_clear_12stones.jpg",
-        "ring_rose_eternity_14stones.jpg",
-        "ring_no_sidestones.jpg",
-    ]:
-        img = cv2.imread(str(OUT_DIR / name))
-        cv2.imwrite(str(FRONTEND_SAMPLES_DIR / name), img)
-    print(f"Copied sample subset into {FRONTEND_SAMPLES_DIR}")
+    print(f"Generated synthetic pytest fixtures in {OUT_DIR}")
 
 
 if __name__ == "__main__":

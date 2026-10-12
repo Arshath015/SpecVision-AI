@@ -48,7 +48,7 @@ def test_analyze_brief_only_json_request():
 
 def test_analyze_with_image_multipart():
     import pathlib
-    img_path = pathlib.Path(__file__).resolve().parent.parent.parent / "evaluation" / "images" / "ring_clear_6stones.jpg"
+    img_path = pathlib.Path(__file__).resolve().parent.parent.parent / "evaluation" / "images" / "synthetic" / "ring_clear_6stones.jpg"
     img_bytes = img_path.read_bytes()
     r = client.post("/analyze", data={"brief": EXAMPLE_BRIEF}, files={"image": ("ring.jpg", img_bytes, "image/jpeg")})
     assert r.status_code == 200

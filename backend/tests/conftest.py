@@ -11,7 +11,7 @@ import pytest
 
 from app.core import config as config_module
 
-IMAGES_DIR = Path(__file__).resolve().parent.parent.parent / "evaluation" / "images"
+IMAGES_DIR = Path(__file__).resolve().parent.parent.parent / "evaluation" / "images" / "synthetic"
 
 
 @pytest.fixture(autouse=True)

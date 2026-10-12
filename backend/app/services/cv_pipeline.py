@@ -220,11 +220,25 @@ def estimate_visible_components(image_bytes: bytes | None) -> CVEstimate:
     elapsed_ms = (time.perf_counter() - start) * 1000
 
     # Confidence policy: grounded in detection count stability and image
-    # quality, not an arbitrary number.
+    # quality, not an arbitrary number. The 16/24 breakpoints come from a
+    # domain prior, not a fitted constant: consumer rings rarely carry more
+    # than ~16 visible accent stones, so counts above that are increasingly
+    # likely to be metal reflections, filigree cutouts, or engraving rather
+    # than discrete stones (confirmed on the real photos in evaluation/images,
+    # where filigree and polished-band highlights produced exactly this
+    # failure mode -- see EVALUATION.md).
     if quality_warnings or count == 0:
         confidence = ConfidenceLevel.LOW
-    elif 1 <= count <= 24:
-        confidence = ConfidenceLevel.MEDIUM if count <= 2 else ConfidenceLevel.HIGH
+    elif count <= 2:
+        confidence = ConfidenceLevel.MEDIUM
+    elif count <= 16:
+        confidence = ConfidenceLevel.HIGH
+    elif count <= 24:
+        confidence = ConfidenceLevel.MEDIUM
+        quality_warnings.append(
+            f"Detection count ({count}) is higher than typical for a ring's visible accent stones; "
+            "treat with extra caution -- may include reflections or decorative metalwork."
+        )
     else:
         confidence = ConfidenceLevel.LOW
         quality_warnings.append(
