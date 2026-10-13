@@ -7,8 +7,9 @@ local inventory catalog, a classical computer-vision estimate of visible
 gemstones, an indicative price, and an explicit confidence/review summary
 -- never silently inventing a value it isn't sure of.
 
-A short PDF summary with two real test-case results (one successful
-match, one documented CV limitation) is at `docs/SpecVision_AI_Summary.pdf`.
+A short PDF summary with three real test-case results is at
+`docs/SpecVision_AI_Summary.pdf` -- the same three cases are walked
+through with images in "Example results" below.
 
 ## Domain
 
