@@ -1,6 +1,16 @@
 # SpecVision AI
 
-**Live demo:** https://specvision-ai.vercel.app (runs in live LLM mode via Groq -- free tier, so a burst of concurrent use may occasionally hit a rate limit; the app degrades safely and reports this rather than failing silently. See "Deployment" below for architecture and known constraints of this hosted version vs. local/Docker.)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-specvision--ai.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://specvision-ai.vercel.app)
+
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](backend/requirements.txt)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)](backend/app/main.py)
+[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black)](frontend/package.json)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](frontend/tsconfig.json)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](frontend/tailwind.config.js)
+[![OpenCV](https://img.shields.io/badge/OpenCV-classical_CV-5C3EE8?logo=opencv&logoColor=white)](backend/app/services/cv_pipeline.py)
+[![Groq](https://img.shields.io/badge/LLM-Groq-F55036?logoColor=white)](backend/app/services/llm/groq_provider.py)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?logo=vercel&logoColor=white)](vercel.json)
+[![Tests](https://img.shields.io/badge/tests-56%20passing-brightgreen)](backend/tests)
 
 AI-powered product specification and cost estimation for custom jewelry.
 Give it a short sales brief and (optionally) a reference photo of a ring,
@@ -9,9 +19,15 @@ local inventory catalog, a classical computer-vision estimate of visible
 gemstones, an indicative price, and an explicit confidence/review summary
 -- never silently inventing a value it isn't sure of.
 
-A short PDF summary with three real test-case results is at
-`docs/SpecVision_AI_Summary.pdf` -- the same three cases are walked
-through with images in "Example results" below.
+| | |
+|---|---|
+| **Live demo** | https://specvision-ai.vercel.app -- runs in live LLM mode via Groq (free tier, so a burst of concurrent use may occasionally hit a rate limit; the app degrades safely and reports this rather than failing silently) |
+| **API docs** | https://specvision-ai.vercel.app/api/docs -- the actual FastAPI/Swagger UI, deployed, not a mockup |
+| **Project summary** | [`docs/SpecVision_AI_Summary.pdf`](docs/SpecVision_AI_Summary.pdf) -- 3 real test-case results, walked through with images in "Example results" below |
+| **Evaluation report** | [`EVALUATION.md`](EVALUATION.md) -- measured metrics, failure analysis, reproduction commands |
+
+See "Deployment" below for the hosted version's architecture and its
+documented differences from local/Docker.
 
 ## Domain
 
