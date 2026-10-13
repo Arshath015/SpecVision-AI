@@ -52,6 +52,15 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
     log_level: str = "INFO"
+    # External path prefix stripped by a reverse proxy in front of this app
+    # (e.g. "/api" on the Vercel deployment, where the Services routing
+    # layer strips "/api" before FastAPI sees the request). Empty locally
+    # and in Docker, where the app is reached directly with no prefix.
+    # Without this, FastAPI's auto-generated Swagger UI hardcodes
+    # "/openapi.json" as an absolute, unprefixed path, which 404s (or in
+    # a multi-service deployment, silently resolves to a different
+    # service entirely) once the app is actually reached at "/api/*".
+    root_path: str = ""
 
     @property
     def cors_origins_list(self) -> list[str]:

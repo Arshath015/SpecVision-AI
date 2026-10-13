@@ -30,6 +30,7 @@ app = FastAPI(
     description="AI-powered product specification and cost estimation for custom jewelry.",
     version="1.0.0",
     lifespan=lifespan,
+    root_path=settings.root_path,
 )
 
 app.add_middleware(

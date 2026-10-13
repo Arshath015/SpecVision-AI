@@ -293,22 +293,35 @@ vercel link --yes --project specvision-ai   # one-time
 vercel env add GROQ_API_KEY production
 vercel env add APP_MODE production          # "live"
 vercel env add MAX_IMAGE_SIZE_BYTES production  # see note below
+vercel env add ROOT_PATH production         # "/api" -- see note below
 vercel --prod
 ```
 
-**Known difference from local/Docker:** Vercel Functions cap request/response
-bodies at 4.5MB. The local/Docker default `MAX_IMAGE_SIZE_BYTES` is 8MB
-(`backend/.env.example`), which would let an upload between 4.5-8MB fail
-at the platform level with an opaque error instead of this app's own
-clean 413 response. The deployed instance overrides this to 4MB via a
-Vercel environment variable so the app's own validation (and its
-user-facing error message) is what actually fires. This is a deployment-specific
-override, not a change to the documented local default.
+**Known differences from local/Docker, both handled explicitly, not glossed over:**
 
-Classical CV (OpenCV) and the live Groq LLM call were both verified
-working on the deployed instance, not just assumed from a successful
-build -- including a real end-to-end `/api/analyze` request with an
-image upload that produced a genuine OpenCV detection result.
+- Vercel Functions cap request/response bodies at 4.5MB. The local/Docker
+  default `MAX_IMAGE_SIZE_BYTES` is 8MB (`backend/.env.example`), which
+  would let an upload between 4.5-8MB fail at the platform level with an
+  opaque error instead of this app's own clean 413 response. The
+  deployed instance overrides this to 4MB via a Vercel environment
+  variable so the app's own validation (and its user-facing error
+  message) is what actually fires.
+- FastAPI's auto-generated Swagger UI (`/docs`) hardcodes an absolute,
+  unprefixed `/openapi.json` reference. Reached directly that's fine,
+  but behind the Services routing layer's `/api` prefix it isn't --
+  the browser would request `/openapi.json` (no prefix), which falls
+  through to the frontend's catch-all and serves `index.html` instead
+  of the schema, breaking Swagger with "does not specify a valid
+  version field." Fixed via FastAPI's own `root_path` mechanism,
+  configured through `ROOT_PATH` (empty locally/Docker, `/api` on
+  Vercel) -- not a routing-layer workaround, the standard mechanism
+  FastAPI provides for exactly this situation.
+
+Classical CV (OpenCV), the live Groq LLM call, and the Swagger docs page
+itself were all verified working on the deployed instance by actually
+loading them, not assumed from a successful build or a 200 status code
+alone -- the Swagger bug above returned 200 on every request involved
+and only showed up when the page was actually opened.
 
 ## API endpoints
 
