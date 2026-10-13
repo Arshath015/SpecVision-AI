@@ -26,7 +26,38 @@ interface BriefFormProps {
 export function BriefForm({ brief, onBriefChange, image, onImageChange, onAnalyze, isLoading, disabled }: BriefFormProps) {
   const [imageError, setImageError] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  // Drag events fire on every child element a dragged file passes over, so
+  // a plain enter/leave pair flickers "isDragging" off whenever the cursor
+  // crosses from the dropzone into one of its own children. A counter that
+  // only clears the highlight once it's back to zero avoids that.
+  const dragCounterRef = useRef(0);
+
+  function handleDragEnter(e: React.DragEvent) {
+    e.preventDefault();
+    dragCounterRef.current += 1;
+    if (e.dataTransfer.types.includes("Files")) setIsDragging(true);
+  }
+
+  function handleDragOver(e: React.DragEvent) {
+    // Required for onDrop to fire at all -- browsers reject drops by default.
+    e.preventDefault();
+  }
+
+  function handleDragLeave(e: React.DragEvent) {
+    e.preventDefault();
+    dragCounterRef.current = Math.max(0, dragCounterRef.current - 1);
+    if (dragCounterRef.current === 0) setIsDragging(false);
+  }
+
+  function handleDrop(e: React.DragEvent) {
+    e.preventDefault();
+    dragCounterRef.current = 0;
+    setIsDragging(false);
+    const file = e.dataTransfer.files?.[0];
+    if (file) validateAndSetImage(file);
+  }
 
   function validateAndSetImage(file: File) {
     if (!ACCEPTED_TYPES.includes(file.type)) {
@@ -95,42 +126,61 @@ export function BriefForm({ brief, onBriefChange, image, onImageChange, onAnalyz
 
       <div>
         <label className="mb-1.5 block text-sm font-medium text-slate-700">Reference image (optional)</label>
-        {previewUrl ? (
-          <div className="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
-            <img src={previewUrl} alt="Reference preview" className="h-20 w-20 flex-none rounded-md border border-slate-200 object-cover" />
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-slate-700">{image?.name}</p>
-              <p className="text-xs text-slate-500">{image ? `${(image.size / 1024).toFixed(0)} KB` : ""}</p>
+        <div
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          {previewUrl ? (
+            <div
+              className={`flex items-center gap-3 rounded-lg border p-3 transition-colors ${
+                isDragging ? "border-brand-400 bg-brand-50" : "border-slate-200 bg-slate-50"
+              }`}
+            >
+              <img src={previewUrl} alt="Reference preview" className="h-20 w-20 flex-none rounded-md border border-slate-200 object-cover" />
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-slate-700">{image?.name}</p>
+                <p className="text-xs text-slate-500">
+                  {isDragging ? "Drop to replace" : image ? `${(image.size / 1024).toFixed(0)} KB` : ""}
+                </p>
+              </div>
+              <div className="flex flex-none gap-2">
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  className="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
+                >
+                  Replace
+                </button>
+                <button
+                  type="button"
+                  onClick={removeImage}
+                  className="rounded-md border border-slate-300 bg-white p-1.5 text-slate-500 hover:bg-slate-50"
+                  aria-label="Remove image"
+                >
+                  <X size={14} />
+                </button>
+              </div>
             </div>
-            <div className="flex flex-none gap-2">
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                className="rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-50"
-              >
-                Replace
-              </button>
-              <button
-                type="button"
-                onClick={removeImage}
-                className="rounded-md border border-slate-300 bg-white p-1.5 text-slate-500 hover:bg-slate-50"
-                aria-label="Remove image"
-              >
-                <X size={14} />
-              </button>
-            </div>
-          </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => fileInputRef.current?.click()}
-            className="flex w-full flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 px-4 py-6 text-slate-500 hover:border-brand-300 hover:bg-brand-50/40"
-          >
-            <ImagePlus size={20} />
-            <span className="text-sm font-medium">Click to upload a reference photo</span>
-            <span className="text-xs text-slate-400">JPG, PNG, or WebP · up to {MAX_IMAGE_MB}MB</span>
-          </button>
-        )}
+          ) : (
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className={`flex w-full flex-col items-center justify-center gap-1.5 rounded-lg border-2 border-dashed px-4 py-6 transition-colors ${
+                isDragging
+                  ? "border-brand-400 bg-brand-50 text-brand-600"
+                  : "border-slate-300 bg-slate-50 text-slate-500 hover:border-brand-300 hover:bg-brand-50/40"
+              }`}
+            >
+              <ImagePlus size={20} />
+              <span className="text-sm font-medium">
+                {isDragging ? "Drop image to upload" : "Click or drag a reference photo here"}
+              </span>
+              <span className="text-xs text-slate-400">JPG, PNG, or WebP · up to {MAX_IMAGE_MB}MB</span>
+            </button>
+          )}
+        </div>
         <input ref={fileInputRef} type="file" accept={ACCEPTED_TYPES.join(",")} onChange={handleFileInput} className="hidden" />
         {imageError && <p className="mt-1 text-xs text-rose-600">{imageError}</p>}
       </div>
