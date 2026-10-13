@@ -83,6 +83,79 @@ functional offline deterministic fallback.
    stable, actionable review flags, and computes an overall status
    (`auto_approved` / `needs_review` / `failed`).
 
+## Example results
+
+Three real, reproducible runs of the actual pipeline (offline/demo mode
+-- no API key, no network call, fully deterministic). Source data and
+regeneration script: `docs/_build/` and `docs/generate_summary_pdf.py`;
+a formatted PDF version of the same three cases is at
+`docs/SpecVision_AI_Summary.pdf`.
+
+```powershell
+cd backend
+.venv\Scripts\Activate.ps1
+python ..\evaluation\runner\run_evaluation.py --mode offline
+```
+
+### Test case 1 -- successful end-to-end match (text-only)
+
+> "A solitaire ring in 18k yellow gold with a round diamond center stone, about 0.45 carats, tension setting, eight moissanite side stones, band width 1.7mm." (no photo)
+
+| | |
+|---|---|
+| Metal | 18k yellow gold (HIGH) |
+| Design | solitaire (HIGH) |
+| Center stone | round diamond, 0.45ct (HIGH) |
+| Side stones | 8x moissanite (HIGH) |
+| Inventory match | `SV-001` -- "Solitaire Round Yellow Gold Ring" -- **100%** match (threshold 72%), auto-selected |
+| Indicative price | **USD 2,568.00** |
+| Status | **AUTO_APPROVED** -- no review flags |
+
+Every stated attribute was extracted correctly and matched a real catalog item exactly.
+
+### Test case 2 -- real photo, honest reporting of a CV limitation
+
+> "A sterling silver ring with a large oval citrine centerpiece and an open filigree band, no side stones." (real photo, Wikimedia Commons CC BY-SA -- see `evaluation/images/PROVENANCE.md`)
+
+<p align="center">
+  <img src="docs/_build/case_b_original.jpg" alt="Original citrine ring photo" width="380">
+  <img src="docs/_build/case_b_annotated.png" alt="CV detections overlaid on the citrine ring" width="380">
+</p>
+<p align="center"><sub>Left: original photo. Right: classical CV detections (green circles) overlaid.</sub></p>
+
+| | |
+|---|---|
+| Metal | 925 sterling silver (HIGH) |
+| Center stone type | **Unknown** (LOW) -- "citrine" is not in the controlled gemstone vocabulary; correctly left unknown rather than guessed |
+| Side stones (from brief) | 0 (HIGH) |
+| **CV result** | **16 visible components, HIGH confidence, no quality warnings** |
+| Status | **NEEDS_REVIEW** |
+
+The photo's pierced filigree metalwork was mistaken for 16 small gemstones by the classical detector -- with high self-reported confidence and no warning, even though the ring has zero side stones. This is a real, documented limitation (analyzed in depth as "Failure #1" in `EVALUATION.md`), caught here only because the brief explicitly states "no side stones," triggering a brief-vs-CV disagreement check (`CV_BRIEF_COUNT_DISAGREEMENT`, 1600% relative difference). If the brief hadn't mentioned a side-stone count at all, this error would not have been flagged -- a limitation stated explicitly, not hidden.
+
+### Test case 3 -- real photo, successful match and price despite an honest CV caveat
+
+> "An 18k yellow gold solitaire ring with a round diamond center stone and no side stones." (real photo, Wikimedia Commons CC BY-SA)
+
+<p align="center">
+  <img src="docs/_build/case_c_original.jpg" alt="Original solitaire ring photo" width="380">
+  <img src="docs/_build/case_c_annotated.png" alt="CV detections overlaid on the solitaire ring" width="380">
+</p>
+<p align="center"><sub>Left: original photo. Right: classical CV detections (green circles) overlaid.</sub></p>
+
+| | |
+|---|---|
+| Metal | 18k yellow gold (HIGH) |
+| Design | solitaire (HIGH) |
+| Center stone | round diamond (HIGH) |
+| Side stones (from brief) | 0 (HIGH) |
+| Inventory match | `SV-001` -- **81%** match (threshold 72%), auto-selected |
+| Indicative price | **USD 2,568.00** |
+| **CV result** | 21 visible components, MEDIUM confidence, flagged |
+| Status | **NEEDS_REVIEW** |
+
+This is a clean studio photo of a plain solitaire with no side stones, but the band's polished-gold highlight still produces enough false-positive detections to push CV confidence down to MEDIUM. Specification extraction, inventory matching, and pricing all succeeded independently of that -- the three subsystems are deliberately decoupled, so a CV caveat on one image doesn't block the rest of the pipeline from producing a usable, priced result. The review flag here reflects the CV module honestly disagreeing with the brief's "no side stones" claim, not an unreliable match or price.
+
 ## Technology stack
 
 - **Backend**: Python 3.12+ (developed/tested on 3.14), FastAPI, Pydantic v2, Uvicorn, OpenCV (headless), NumPy, pandas, httpx, pytest.
