@@ -3,7 +3,15 @@ import { useRef, useState } from "react";
 import { EXAMPLE_BRIEFS } from "../data/examples";
 
 const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_IMAGE_BYTES = 8 * 1024 * 1024;
+// Must track the backend's MAX_IMAGE_SIZE_BYTES for this deployment --
+// local/Docker default is 8MB, but the Vercel deployment lowers this to
+// stay under Vercel Functions' 4.5MB request body limit (see
+// VITE_MAX_IMAGE_SIZE_MB in frontend/.env.production). Showing a limit
+// the backend doesn't actually honor would let a user upload something
+// that fails with a confusing platform-level error instead of this app's
+// own clean message.
+const MAX_IMAGE_MB = Number(import.meta.env.VITE_MAX_IMAGE_SIZE_MB ?? 8);
+const MAX_IMAGE_BYTES = MAX_IMAGE_MB * 1024 * 1024;
 
 interface BriefFormProps {
   brief: string;
@@ -120,7 +128,7 @@ export function BriefForm({ brief, onBriefChange, image, onImageChange, onAnalyz
           >
             <ImagePlus size={20} />
             <span className="text-sm font-medium">Click to upload a reference photo</span>
-            <span className="text-xs text-slate-400">JPG, PNG, or WebP · up to 8MB</span>
+            <span className="text-xs text-slate-400">JPG, PNG, or WebP · up to {MAX_IMAGE_MB}MB</span>
           </button>
         )}
         <input ref={fileInputRef} type="file" accept={ACCEPTED_TYPES.join(",")} onChange={handleFileInput} className="hidden" />

@@ -1,5 +1,7 @@
 # SpecVision AI
 
+**Live demo:** https://specvision-ai.vercel.app (runs in live LLM mode via Groq -- free tier, so a burst of concurrent use may occasionally hit a rate limit; the app degrades safely and reports this rather than failing silently. See "Deployment" below for architecture and known constraints of this hosted version vs. local/Docker.)
+
 AI-powered product specification and cost estimation for custom jewelry.
 Give it a short sales brief and (optionally) a reference photo of a ring,
 and it returns a structured specification, a ranked match against a
@@ -274,6 +276,39 @@ docker compose up --build
 Backend on `http://localhost:8000`, frontend on `http://localhost:4173`.
 Requires `backend/.env` to exist (copy from `.env.example`) since
 `docker-compose.yml` loads it via `env_file`.
+
+### Vercel deployment
+
+The live demo linked at the top of this file is deployed as a single
+Vercel project using [Services](https://vercel.com/docs/services) --
+one `vercel.json` at the repo root declares two services (`frontend`,
+the Vite build; `backend`, the FastAPI app) that build independently but
+ship as one deployment. Public routing: `/api/*` reaches the backend
+(with the `/api` prefix stripped before it hits FastAPI's own route
+definitions), everything else serves the frontend SPA. Same origin for
+both, so no CORS configuration is needed in production.
+
+```powershell
+vercel link --yes --project specvision-ai   # one-time
+vercel env add GROQ_API_KEY production
+vercel env add APP_MODE production          # "live"
+vercel env add MAX_IMAGE_SIZE_BYTES production  # see note below
+vercel --prod
+```
+
+**Known difference from local/Docker:** Vercel Functions cap request/response
+bodies at 4.5MB. The local/Docker default `MAX_IMAGE_SIZE_BYTES` is 8MB
+(`backend/.env.example`), which would let an upload between 4.5-8MB fail
+at the platform level with an opaque error instead of this app's own
+clean 413 response. The deployed instance overrides this to 4MB via a
+Vercel environment variable so the app's own validation (and its
+user-facing error message) is what actually fires. This is a deployment-specific
+override, not a change to the documented local default.
+
+Classical CV (OpenCV) and the live Groq LLM call were both verified
+working on the deployed instance, not just assumed from a successful
+build -- including a real end-to-end `/api/analyze` request with an
+image upload that produced a genuine OpenCV detection result.
 
 ## API endpoints
 

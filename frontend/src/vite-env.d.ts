@@ -2,6 +2,7 @@
 
 interface ImportMetaEnv {
   readonly VITE_API_URL: string;
+  readonly VITE_MAX_IMAGE_SIZE_MB?: string;
 }
 
 interface ImportMeta {
